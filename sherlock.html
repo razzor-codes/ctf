@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>CTF Challenges</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/9ebdf8e948.js" crossorigin="anonymous"></script>
+
+<style>
+  p, code{
+    font-size: 18px;
+  }
+
+  #sidebar{
+      position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    height: 100vh;
+  }
+
+</style>
+  </head>
+  <body>
+		
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar" class="active">
+        <!--
+				<h1><a href="index.html" class="logo">M</a></h1>
+        -->
+        <ul class="list-unstyled components mb-5">
+          <li>
+            <a href="index.html"><span class="fa fa-home"></span>Home</a>
+          </li>
+          <li class="active">
+              <a href="#"><span class="fas fa-fingerprint"></span>Sherlock</a>
+          </li>
+
+        </ul>
+
+    	</nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5">
+
+        <h2 class="mb-4">Sherlock</h2>
+
+        
+        <p>
+          Can You Find My Password Hash?<br>
+          <b>Author:</b> Razzor<br>
+          <b>Network:</b> Rinkeby<br>
+          <b>Address:</b>  0x3a6CAE3af284C82934174F693151842Bc71b02b2<br>
+          For verification of your flags/findings DM me at <a href="https://twitter.com/razzor_tweet">Twitter</a>
+        </p>
+
+        <h3>Contract Code</h3>
+        <code>
+          <pre>
+            
+    pragma solidity ^0.8.0;
+    contract sherlock{
+
+    uint256 public var256_1 = 1337;
+    bool public bool_1 = false;
+    bool public bool_2 = false;
+    bool public bool_3 = true;
+    uint16 public var16_1 = 32;
+    uint16 private var16_2 = 64;
+    address public contractAdd = address(this);
+    uint256 private var256_2 = 3445;
+    uint256 private var256_3 = 6677;
+    bytes32 private iGotThePassword;
+    bytes32 private actuallPass;
+    bytes32 private definitelyThePass;
+    uint256 public var256_4 = 7788;
+    uint16 public var16_3 = 69;
+    uint16 private var16_4 = 7;
+    bool private _Pass = true;
+    bool private _The = true;
+    bool private _Password = false;
+    address private owner;
+    uint16 private counter;
+    bytes32 public constant thePassword = ...................[REDACTED]...................
+    bytes32 private constant ohNoNoNoNoNo = .................[REDACTED]...................
+    bytes32[4] private passHashes;
+    struct Passwords {
+        bytes32 name;
+        uint256 secretKey;
+        bytes32 password;
+    }
+    Passwords[] private passwords;
+    mapping (uint256 => Passwords) private destiny;
+
+    ...................[REDACTED]................... 
+    }
+          </pre>
+        </code>
+      </div>
+		</div>
+
+  </body>
+</html>
