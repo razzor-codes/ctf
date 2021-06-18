@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>CTF Challenges</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/9ebdf8e948.js" crossorigin="anonymous"></script>
+
+<style>
+  p, code{
+    font-size: 18px;
+  }
+
+  #sidebar{
+      position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    height: 100vh;
+  }
+
+</style>
+  </head>
+  <body>
+		
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar" class="active">
+        <!--
+				<h1><a href="index.html" class="logo">M</a></h1>
+        -->
+        <ul class="list-unstyled components mb-5">
+          <li>
+            <a href="index.html"><span class="fa fa-home"></span>Home</a>
+          </li>
+          <li>
+              <a href="sherlock.html"><span class="fas fa-fingerprint"></span>Sherlock</a>
+          </li>
+          <li class="active">
+              <a href="#"><span class="fab fa-optin-monster"></span>Sherlock</a>
+          </li>
+        </ul>
+
+    	</nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5" style="overflow: auto;">
+
+        <h2 class="mb-4">Minion</h2>
+
+        
+        <p>
+          Call Me Anytime! Wait... Can You Even Call Me?<br>
+          <b>Author:</b> <a href="https://twitter.com/razzor_tweet">Razzor</a><br>
+          <b>Network:</b> Rinkeby<br>
+          <b>Address:</b> 0xe3Bf6D5379fD80C44156bAa4f3D8e7F507f6bcd1<br>
+        </p>
+
+        <h3>Contract Code</h3>
+        <code>
+          <pre>
+            
+
+
+pragma solidity ^0.8.0;
+
+contract Minion{
+    
+    mapping(address => uint256) private contributionAmount;
+    mapping(address => bool) private pwned;
+    address public owner;
+    uint256 private constant MINIMUM_CONTRIBUTION = (1 ether)/10;
+    uint256 private constant MAXIMUM_CONTRIBUTION = (1 ether)/5;
+    
+    constructor(){
+        owner = msg.sender;
+    }
+
+    function isContract(address account) internal view returns(bool){
+        uint256 size;
+        assembly {
+            size := extcodesize(account)
+        }
+        return size > 0;
+    }    
+    function pwn() external payable{
+        require(tx.origin != msg.sender, "Well we are not allowing EOAs, sorry");
+        require(!isContract(msg.sender), "Well we don't allow Contracts either");
+        require(msg.value >= MINIMUM_CONTRIBUTION, "Minimum Contribution needed is 0.1 ether");
+        require(msg.value <= MAXIMUM_CONTRIBUTION, "How did you get so much money? Max allowed is 0.5 ether");
+        require(block.timestamp % 120 >= 0 && block.timestamp % 120 < 60, "Not the right time");
+        contributionAmount[msg.sender] += msg.value;
+        
+        if(contributionAmount[msg.sender] >= 1 ether){
+            pwned[msg.sender] = true;
+            
+        }
+    }
+    
+    function verify(address account) external view returns(bool){
+     require(account != address(0), "You trynna trick me?");
+     return pwned[account];
+    }
+    
+    function retrieve() external{
+        require(msg.sender == owner, "Are you the owner?");
+        require(address(this).balance > 0, "No balance, you greedy hooman");
+        payable(owner).transfer(address(this).balance);
+    }
+
+    function timeVal() external view returns(uint256){
+        return block.timestamp;
+    }
+}
+          </pre>
+        </code>
+      </div>
+		</div>
+
+  </body>
+</html>
