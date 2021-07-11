@@ -22,6 +22,28 @@
     z-index: 1020;
     height: 100vh;
   }
+	
+  .logo{
+    width: 150px;
+    height: 135px;
+  }
+
+  .logodiv{
+    
+ text-align: center;
+
+  }
+
+  @media screen and (max-width: 600px){
+    .logodiv{display: block;
+       float: right;
+    }
+  }
+
+  .foot-text{
+  margin-top: 100px;
+  text-align: center;
+}
 </style>
   </head>
   <body>
@@ -50,7 +72,10 @@
       <div id="content" class="p-4 p-md-5">
 
  
-
+       <div class="logodiv">
+        <img src="css/CipherLogo.png" class="logo"><sup><b>TM</b></sup> 
+        </div>
+	      
         <h2 class="mb-4">About</h2>
         <p>A place where you can enhance your Security Skills by solving and learning from CTF like challenges. The challenges will be targeted towards <b>Blockchain Security</b>, <b>Smart Contract Exploitation</b>, and <b>Cryptography</b></p>
 
@@ -66,6 +91,11 @@
             </li>
           </ul>
         </p>
+			        <footer>
+            <div class="foot-text">
+Copyright &copy; 2021 - Cipher Shastra
+</div>
+  </footer>
       </div>
 		</div>
 
