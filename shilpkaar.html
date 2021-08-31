@@ -128,7 +128,7 @@
         regRecord.password = _password;
         require(gate1Unlocked && gate2Unlocked, "Gates Not Unlocked");
         require(uint256(garbageAddress) > 2**153 + garbageNonce && uint256(garbageAddress) <= 2**160 - ((garbageDivisor-1) - garbageNonce), "Problem With garbageAddress");
-        require(gateKey3<uint256(uint64(-1))*49 / 100 && gateKey4<uint256(uint64(-1))*51 / 100 && probablyPrime(gateKey3) && probablyPrime(gateKey4), "Problem with gateKeys");
+        require(gateKey3 < uint256(uint64(-1))*49/100 && gateKey4 < uint256(uint64(-1))*51 / 100 && probablyPrime(gateKey3) && probablyPrime(gateKey4), "Problem with gateKeys");
         uint256 masterKey = uint256(gateKey1)+uint256(gateKey2)+uint256(gateKey3)+uint256(gateKey4)+uint256(gateKey5);
         require(masterKey > (2**65+2**56) + masterNonce && masterKey < (2**65+2**56+2**16) - ((masterDivisor-1)- masterNonce), "Problem with masterkey");
         userRecords[msg.sender] = regRecord;
