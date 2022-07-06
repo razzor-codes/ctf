@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CTF Challenges</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/9ebdf8e948.js" crossorigin="anonymous"></script>
+
+<style>
+  p, code{
+    font-size: 18px;
+  }
+
+  #sidebar{
+      position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    height: 100vh;
+  }
+ 
+
+  .foot-text{
+  margin-top: 100px;
+  text-align: center;
+}
+
+  @media screen and (max-width: 600px){
+    .undead{
+       width: 350px;
+       height: 250px;
+    }
+  }
+</style>
+  </head>
+  <body>
+  	 <div class="wrapper d-flex align-items-stretch">
+      <nav id="sidebar" class="active">
+        <!--
+        <h1><a href="index.html" class="logo">M</a></h1>
+        -->
+        <ul class="list-unstyled components mb-5">
+          <li>
+            <a href="index.html"><span class="fa fa-home"></span>Home</a>
+          </li>
+          <li>
+              <a href="sherlock.html"><span class="fas fa-fingerprint"></span>Sherlock</a>
+          </li>
+          <li>
+              <a href="minion.html"><span class="fab fa-optin-monster"></span>Minion</a>
+          </li>
+           <li>
+            <a href="limitless.html"><span class="fab fa-bitcoin"></span>Limitless</a>
+          </li>
+
+          <li>
+            <a href="shilpkaar.html"><span class="fab fa-keycdn"></span>Shilpkaar</a>
+          </li>
+
+          <li>
+          	<a href="UnDeAD.html"><span class="fas fa-biohazard"></span>UnDeAD</a>
+            </li>
+
+            <li class="active">
+                <a href=#><span class="fas fa-phone"></span>ThirtyFive</a>
+            </li>
+
+
+        </ul>
+
+      </nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5" style="overflow: auto;">
+    
+        <h2 class="mb-4">ThirtyFive</h2>
+
+        
+        <p>
+          We are hackers, We have our own ways!<br>
+          <b>Author:</b> <a href="https://twitter.com/razzor_tweet">Razzor</a><br>
+          <b>Network:</b> Rinkeby<br>
+          <b>Address:</b> <a href="https://rinkeby.etherscan.io/address/0xD1970e2E77dCB4Af320284AD72034c6F7F4d5791">0xD1970e2E77dCB4Af320284AD72034c6F7F4d5791</a><br>
+        </p>
+
+      <h3>Contract Code</h3>
+        <code>
+          <pre>
+    pragma solidity ^0.7.0;
+
+    contract ThirtyFive{
+        using ECDSA for bytes32;
+        bytes32 public constant DOMAIN_TYPEHASH = keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"); 
+        bytes32 public constant SIGNING_TYPEHASH = keccak256("SIGNING(uint16 nonce,uint256 expiry)");
+        bytes32 public immutable DOMAIN_SEPARATOR;
+        bytes32 public immutable name;
+        bytes32 public immutable version;
+            
+        mapping(address=>uint24) public nonces;
+        mapping(address=>bytes32) internal verificationTokens;
+        mapping(address=>bool) internal isTokenGenerated;
+        mapping(bytes32=>bool) internal identifiers;
+        mapping(address=>uint256) public pwnCounter;
+        event TokenGen(address indexed signer, bytes32 indexed token);
+            
+    constructor(string memory _name, string memory _version){
+        bytes32 name_ = keccak256(bytes(_name));
+        bytes32 version_ = keccak256(bytes(_version));
+        name = name_;
+        version = version_;
+        uint chainId;
+        assembly {
+            chainId := chainid()
+        }
+        DOMAIN_SEPARATOR = keccak256(abi.encode(DOMAIN_TYPEHASH, name_, version_, chainId, address(this)));
+    }
+            
+    fallback() payable external{
+
+    }
+            
+    function signItLikeYouMeanIt(uint16 nonce, uint deadline, bytes memory signature) external{
+        require(block.timestamp <= deadline, "Expired");
+        require(nonce == nonces[msg.sender]+1, "Invalid Nonce");
+        bytes32 structHash = keccak256(abi.encode(SIGNING_TYPEHASH, nonce, deadline));
+        bytes32 digest = keccak256(abi.encodePacked("\x19\x01", DOMAIN_SEPARATOR, structHash));
+        address signer = digest.recover(signature);
+        require(signer == msg.sender, "Only Self Signed Signatures are allowed");
+        bytes32 slot = keccak256(abi.encode(msg.sender, 0));
+        assembly{
+            sstore(slot, calldataload(4))     
+        }
+    }
+
+    function giveMeMyToken() external{
+        if (nonces[msg.sender] > 0x5014C3 && !isTokenGenerated[msg.sender]) {
+            bytes32 token = keccak256(abi.encode(msg.sender,block.timestamp));
+            verificationTokens[msg.sender] = token;
+            isTokenGenerated[msg.sender]=true;
+            emit TokenGen(msg.sender, token);
+        }
+    }
+            
+    function pwn(bytes32 token) external{
+        require(token!=bytes32(0), "No Token Yet");
+        require(token == verificationTokens[msg.sender], "Invalid Token");
+        bytes32 id = keccak256(msg.data);
+        require(!identifiers[id], "Already executed");
+        identifiers[id] = true;
+        ++pwnCounter[msg.sender]; 
+    }
+            
+    function HackerWho() external view returns(string memory){
+        uint counter = pwnCounter[msg.sender];
+
+        if (counter > 0 && counter <= 2){
+            return "Yayyy! You solved the challenge";
+        }
+        else if (counter > 2) {
+            return "Hello Hacker";
+        }
+
+        else { return "Not yet" ;}
+    
+    }
+            
+    }
+          </pre>
+      </code>
+        <!--
+<h3>Writeups</h3>
+        <p>
+<a href="">Official Writeup</a><br>
+        </p>
+             -->
+
+                        <footer>
+            <div class="foot-text">
+Copyright &copy; 2022 - Cipher Shastra
+</div>
+  </footer>
+        
+      </div>
+    </div>
+
+  </body>
+</html>
+	
