@@ -87,7 +87,7 @@
   pragma solidity ^0.8.0;
 
   interface Mortal {
-  function deatYet() external view returns (bytes32);
+  function deadYet() external view returns (bytes32);
   }
 
   contract undead{
@@ -113,7 +113,7 @@
     }
     require(size == 15);
     Mortal mortal = Mortal(_addr);
-    bytes32 answerMe = mortal.deatYet();
+    bytes32 answerMe = mortal.deadYet();
     string memory identity = bytes32ToString(answerMe <<= (4 * 52));
     require(keccak256(abi.encodePacked(identity)) == keccak256(abi.encodePacked("UnDeAD")), "MORTAL!");
     UnDeAD[keccak256(abi.encodePacked(_addr))] = true;
