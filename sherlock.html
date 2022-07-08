@@ -4,53 +4,51 @@
   	<title>CTF Challenges</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta name="description" content="Can You Find My Password Hash? @rinkeby: 0x3a6CAE3af284C82934174F693151842Bc71b02b2">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-		
 		<link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/9ebdf8e948.js" crossorigin="anonymous"></script>
-<script>
-  hashedFlag = "14d908c6634367ff6daeaf92a91d8b3beda61fe72da2fecffb27f623c70a9c61";
-  async function Verify(){
-  const flag = document.getElementById("flag").value;
-  const arrayBuffer = new TextEncoder().encode(flag);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer); // hash the message
-  const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  if (hashHex == hashedFlag) document.getElementById("flagOut").innerHTML = "Congrats! You solved the challenge";
-  else document.getElementById("flagOut").innerHTML = "Incorrect Flag";
-} 
-</script>
-<style>
-  p, code{
-    font-size: 18px;
-  }
 
-  #sidebar{
+  <script>
+    hashedFlag = "14d908c6634367ff6daeaf92a91d8b3beda61fe72da2fecffb27f623c70a9c61";
+    async function Verify(){
+    const flag = document.getElementById("flag").value;
+    const arrayBuffer = new TextEncoder().encode(flag);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer); // hash the message
+    const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    if (hashHex == hashedFlag) document.getElementById("flagOut").innerHTML = "Congrats! You solved the challenge";
+    else document.getElementById("flagOut").innerHTML = "Incorrect Flag";
+    } 
+  </script>
+  <style>
+    p, code{
+      font-size: 18px;
+    }
+
+    #sidebar{
       position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 1020;
-    height: 100vh;
-  }
- 
-
-  .foot-text{
-  margin-top: 100px;
-  text-align: center;
-}
-
-input[type=text] {
+      position: sticky;
+      top: 0;
+      z-index: 1020;
+      height: 100vh;
+    }
   
 
-  padding: 6px 15px;
-  width: 40%;
-  box-sizing: border-box;
-  border: 2px solid;
-  border-color: #3e64ff;
-  border-radius: 4px;
-}
-</style>
+    .foot-text{
+    margin-top: 100px;
+    text-align: center;
+    }
+
+    input[type=text] {
+    padding: 6px 15px;
+    width: 40%;
+    box-sizing: border-box;
+    border: 2px solid;
+    border-color: #3e64ff;
+    border-radius: 4px;
+    }
+  </style>
   </head>
   <body>
 		
