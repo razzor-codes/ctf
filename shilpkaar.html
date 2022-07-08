@@ -4,72 +4,64 @@
     <title>CTF Challenges</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="The doors are locked, Only a Worthy Shilpkaar can craft the Master Key from pieces. Are you the one? @rinkeby: 0x8b6Df584c5b82F9647a63a66cfD45006ccB777FF">
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/googlecode.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+    <script src="css/solidity.js"></script>
     
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/9ebdf8e948.js" crossorigin="anonymous"></script>
+    <script>
+      window.setTimeout(() => {
+      if(!window.hljs){
+        console.error("HighlightJS not loaded")
+      }
+      window.hljs.registerLanguage('solidity', window.hljsDefineSolidity)
+      window.hljs.highlightAll()
+      }
+      ,200)
+    </script>
 
-<style>
-  p, code{
-    font-size: 18px;
-  }
-
-  #sidebar{
-      position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 1020;
-    height: 100vh;
-  }
- 
-
-  .foot-text{
-  margin-top: 100px;
-  text-align: center;
-}
-</style>
+    <style>
+      p, code{
+        font-size: 18px;
+      }
+    
+      #sidebar{
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index: 1020;
+        height: 100vh;
+      }
+    
+    
+      .foot-text{
+      margin-top: 100px;
+      text-align: center;
+    }
+    </style>
   </head>
   <body>
     
-    <div class="wrapper d-flex align-items-stretch">
-      <nav id="sidebar" class="active">
-        <!--
-        <h1><a href="index.html" class="logo">M</a></h1>
-        -->
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar" class="active">
         <ul class="list-unstyled components mb-5">
-          <li>
-            <a href="index.html"><span class="fa fa-home"></span>Home</a>
-          </li>
-          <li>
-              <a href="sherlock.html"><span class="fas fa-fingerprint"></span>Sherlock</a>
-          </li>
-          <li>
-              <a href="minion.html"><span class="fab fa-optin-monster"></span>Minion</a>
-          </li>
-           <li>
-            <a href="limitless.html"><span class="fab fa-bitcoin"></span>Limitless</a>
-          </li>
-
-          <li class="active">
-            <a href=#><span class="fab fa-keycdn"></span>Shilpkaar</a>
-          </li>
-                   <li>
-          	<a href="UnDeAD.html"><span class="fas fa-biohazard"></span>UnDeAD</a>
-		</li>
-	<li>
-                <a href="ThirtyFive.html"><span class="fas fa-phone"></span>ThirtyFive</a>
-         </li>
+          <li><a href="index.html"><span class="fa fa-home"></span> Home</a></li>
+          <li><a href="sherlock.html"><span class="fas fa-fingerprint"></span> Sherlock</a></li>
+          <li><a href="minion.html"><span class="fab fa-optin-monster"></span>Minion</a></li>
+          <li><a href="limitless.html"><span class="fab fa-bitcoin"></span>Limitless</a></li>
+		      <li class="active"><a href="#"><span class="fab fa-keycdn"></span>Shilpkaar</a></li>
+	        <li><a href="UnDeAD.html"><span class="fas fa-biohazard"></span>UnDeAD</a></li>
+	        <li><a href="ThirtyFive.html"><span class="fas fa-phone"></span>ThirtyFive</a></li>
         </ul>
+    	</nav>
 
-      </nav>
-
-        <!-- Page Content  -->
       <div id="content" class="p-4 p-md-5" style="overflow: auto;">
-    
         <h2 class="mb-4">Shilpkaar</h2>
-
-        
         <p>
           The doors are locked, Only a Worthy Shilpkaar can craft the Master Key from pieces.<br>
           Are you the one?<br>
@@ -77,10 +69,10 @@
           <b>Network:</b> Rinkeby<br>
           <b>Address:</b> <a href="https://rinkeby.etherscan.io/address/0x8b6Df584c5b82F9647a63a66cfD45006ccB777FF">0x8b6Df584c5b82F9647a63a66cfD45006ccB777FF</a><br>
         </p>
-
         <h3>Contract Code</h3>
-        <code>
-          <pre>
+        <pre>
+          <code class="language-solidity" style="font-size: 1rem;">
+
             
     pragma solidity ^0.4.19;
     contract Shilpkaar{
@@ -288,23 +280,18 @@
     }
     
     }
-          </pre>
-        </code>
+          </code>
+        </pre>
         <!--
-<h3>Writeups</h3>
-        <p>
-<a href="">Official Writeup</a><br>
-        </p>
-             -->
+        <h3>Writeups</h3>
+        <p><a href="">Official Writeup</a><br></p>
+        -->
 
-                        <footer>
-            <div class="foot-text">
-Copyright &copy; 2022 - Cipher Shastra
-</div>
-  </footer>
+        <footer>
+          <div class="foot-text">Copyright &copy; 2022 - Cipher Shastra</div>
+        </footer>
         
       </div>
     </div>
-
   </body>
 </html>
