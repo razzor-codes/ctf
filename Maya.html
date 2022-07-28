@@ -122,7 +122,7 @@ contract Maya is ERC721("MAYA", "MAYA"){
     function burnMaya() external {
         require(balanceOf(msg.sender)>0,"No Ids to burn");
         uint length = allIds[msg.sender].length;
-        for(uint i=0;i<length;++i){
+        for(uint i=0;i < length;++i){
             uint tokenId = allIds[msg.sender][i];
             _burn(tokenId);
         }
