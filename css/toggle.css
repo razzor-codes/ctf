@@ -53,4 +53,10 @@
       .stars {
         color: #3e64ff;
         text-shadow: 6px 6px 20px #282c34;
+        animation: fadein 1s linear 1 forwards;
+      }
+
+      @keyframes fadein {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
       }
