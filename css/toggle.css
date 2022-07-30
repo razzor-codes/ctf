@@ -49,3 +49,8 @@
       .fa-sun {
         color: yellow;
       }
+
+      .stars {
+        color: #3e64ff;
+        text-shadow: 6px 6px 20px #282c34;
+      }
