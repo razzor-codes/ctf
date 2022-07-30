@@ -13,6 +13,7 @@
     <script src="css/solidity.js"></script>
     
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/toggle.css">
     <script src="https://kit.fontawesome.com/9ebdf8e948.js" crossorigin="anonymous"></script>
     <script>
       window.setTimeout(() => {
@@ -62,7 +63,22 @@
     	</nav>
 
       <div id="content" class="p-4 p-md-5" style="overflow: auto;">
-        <h2 class="mb-4">Shilpkaar</h2>
+        <div class="d-flex">
+          <div>
+            <h2 class="mb-4" id="title"><span class="fab fa-keycdn"></span>Shilpkaar</h2>
+
+          </div>
+          <div class="ml-auto">
+
+            <input type="checkbox" class="checkbox" id="checkbox">
+            <label for="checkbox" class="label">
+              <i class="fas fa-moon"></i>
+              <i class='fas fa-sun'></i>
+              <div class='ball'></div>
+            </label>
+          </div>
+
+      </div>
         <p>
           The doors are locked, Only a Worthy Shilpkaar can craft the Master Key from pieces.<br>
           Are you the one?<br>
@@ -70,7 +86,7 @@
           <b>Network:</b> Rinkeby<br>
           <b>Address:</b> <a href="https://rinkeby.etherscan.io/address/0x8b6Df584c5b82F9647a63a66cfD45006ccB777FF">0x8b6Df584c5b82F9647a63a66cfD45006ccB777FF</a><br>
         </p>
-        <h3>Contract Code</h3>
+        <h3 id="contract-title">Contract Code</h3>
         <pre>
           <code class="language-solidity" style="font-size: 1rem;">
 pragma solidity ^0.4.19;
@@ -285,7 +301,7 @@ pragma solidity ^0.4.19;
         <h3>Writeups</h3>
         <p><a href="">Official Writeup</a><br></p>
         -->
-
+        <script src="css/toggle.js"></script>
         <footer>
           <div class="foot-text">Copyright &copy; 2022 - Cipher Shastra</div>
         </footer>

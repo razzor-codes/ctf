@@ -12,6 +12,8 @@
     <script src="css/solidity.js"></script>
     
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/toggle.css">
+
     <script src="https://kit.fontawesome.com/9ebdf8e948.js" crossorigin="anonymous"></script>
   
     <script>
@@ -61,14 +63,29 @@
 
 
       <div id="content" class="p-4 p-md-5" style="overflow: auto;">
-        <h2 class="mb-4">ThirtyFive</h2>
+        <div class="d-flex">
+          <div>
+            <h2 class="mb-4" id="title"><span class="fas fa-phone"></span>ThirtyFive</h2>
+
+          </div>
+          <div class="ml-auto">
+
+            <input type="checkbox" class="checkbox" id="checkbox">
+            <label for="checkbox" class="label">
+              <i class="fas fa-moon"></i>
+              <i class='fas fa-sun'></i>
+              <div class='ball'></div>
+            </label>
+          </div>
+
+      </div>
         <p>
           We are hackers, We have our own ways!<br>
           <b>Author:</b> <a href="https://twitter.com/razzor_tweet">Razzor</a><br>
           <b>Network:</b> Rinkeby<br>
           <b>Address:</b> <a href="https://rinkeby.etherscan.io/address/0xD1970e2E77dCB4Af320284AD72034c6F7F4d5791">0xD1970e2E77dCB4Af320284AD72034c6F7F4d5791</a><br>
         </p>
-        <h3>Contract Code</h3>
+        <h3 id="contract-title">Contract Code</h3>
         <pre>
         <code class="language-solidity" style="font-size: 1rem;">     
     pragma solidity ^0.7.0;
@@ -152,6 +169,7 @@
         <h3>Writeups</h3>
         <p><a href="">Official Writeup</a><br></p>
         -->
+      <script src="css/toggle.js"></script>
       <footer>
         <div class="foot-text">Copyright &copy; 2022 - Cipher Shastra</div>  
       </footer>

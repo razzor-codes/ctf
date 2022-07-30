@@ -12,9 +12,12 @@
     <script src="css/solidity.js"></script>
     
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/toggle.css">
+
     <script src="https://kit.fontawesome.com/9ebdf8e948.js" crossorigin="anonymous"></script>
   
     <script>
+      
       window.setTimeout(() => {
       if(!window.hljs){
         console.error("HighlightJS not loaded")
@@ -22,7 +25,8 @@
       window.hljs.registerLanguage('solidity', window.hljsDefineSolidity)
       window.hljs.highlightAll()
       }
-      ,200)
+      ,200);
+      
     </script>
 
     <style>
@@ -48,7 +52,7 @@
            height: 250px;
         }
       }
-      
+
     </style>
   </head>
   <body>
@@ -68,7 +72,22 @@
 
 
       <div id="content" class="p-4 p-md-5" style="overflow: auto;">
-        <h2 class="mb-4">Maya</h2>
+        <div class="d-flex">
+          <div>
+            <h2 class="mb-4" id="title"><span class="fas fa-gas-pump"></span>Maya</h2>
+
+          </div>
+          <div class="ml-auto">
+
+            <input type="checkbox" class="checkbox" id="checkbox">
+            <label for="checkbox" class="label">
+              <i class="fas fa-moon"></i>
+              <i class='fas fa-sun'></i>
+              <div class='ball'></div>
+            </label>
+          </div>
+
+      </div>
         <p>
           Does SUCCESS really matter? Anyways, anyone having more than 2 Mayas is a HUNTER!<br>
           <b>Author:</b> <a href="https://twitter.com/razzor_tweet">Razzor</a><br>
@@ -76,7 +95,7 @@
           <b>Address:</b> <a href="https://goerli.etherscan.io/address/0xa65d0e85bb136f460d864a8d37eacc1011314623">0xA65d0E85BB136F460d864a8D37EacC1011314623</a><br>
         </p>
 
-        <h3>Contract Pseudo Code</h3>
+        <h3 id="contract-title">Contract Pseudo Code</h3>
         <pre>
             <code class="language-solidity" style="font-size: 1rem;">     
 pragma solidity ^0.8.0;
@@ -181,6 +200,7 @@ contract Maya is ERC721("MAYA", "MAYA"){
         <h3>Writeups</h3>
         <p><a href="">Official Writeup</a><br></p>
         -->
+        <script src="css/toggle.js"></script>
         <footer>
             <div class="foot-text">Copyright &copy; 2022 - Cipher Shastra</div>  
         </footer>

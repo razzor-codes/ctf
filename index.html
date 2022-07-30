@@ -7,6 +7,7 @@
 	  <meta name="description" content="At Cipher Shastra you can enhance your Security Skills by solving and learning from CTF like challenges">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/toggle.css">
     <script src="https://kit.fontawesome.com/9ebdf8e948.js" crossorigin="anonymous"></script>
 
     <style>
@@ -65,16 +66,31 @@
           <img src="css/CipherLogo.png" class="logo"><sup><b>TM</b></sup> 
         </div>
 	      
-        <h2 class="mb-4">About</h2>
+        <div class="d-flex">
+          <div>
+            <h2 class="mb-4" id="title">About</h2>
+
+          </div>
+          <div class="ml-auto">
+
+            <input type="checkbox" class="checkbox" id="checkbox">
+            <label for="checkbox" class="label">
+              <i class="fas fa-moon"></i>
+              <i class='fas fa-sun'></i>
+              <div class='ball'></div>
+            </label>
+          </div>
+
+      </div>
         <p>A place where you can enhance your Security Skills by solving and learning from CTF like challenges. The challenges will be targeted towards <b>Blockchain Security</b>, <b>Smart Contract Exploitation</b>, and <b>Cryptography</b></p>
-        <h2 class="mb-4">Community Participation</h2>
+        <h2 class="mb-4" id="contract-title">Community Participation</h2>
         <p>If you have any challenge that you want to contribute, DM me at
           <ul class="list-unstyled components mb-5">
             <li><a href="https://twitter.com/razzor_tweet"><span class="fab fa-twitter"></span> Twitter</a></li>
             <li><a href="https://linkedin.com/in/razzor"><span class="fab fa-linkedin-in"></span> LinkedIn</a></li>
           </ul>
         </p>
-			        
+        <script src="css/toggle.js"></script>			        
         <footer>
           <div class="foot-text">Copyright &copy; 2022 - Cipher Shastra</div>
         </footer>

@@ -12,6 +12,8 @@
     <script src="css/solidity.js"></script>
 
 		<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/toggle.css">
+
     <script src="https://kit.fontawesome.com/9ebdf8e948.js" crossorigin="anonymous"></script>
     <script>
       window.setTimeout(() => {
@@ -71,7 +73,7 @@
 			<nav id="sidebar" class="active">
         <ul class="list-unstyled components mb-5">
           <li><a href="index.html"><span class="fa fa-home"></span> Home</a></li>
-          <li class="active"><a href="#"><span class="fas fa-fingerprint"></span> Sherlock</a></li>
+          <li class="active"><a href="#"><span class="fas fa-fingerprint"></span>Sherlock</a></li>
           <li><a href="minion.html"><span class="fab fa-optin-monster"></span>Minion</a></li>
           <li><a href="limitless.html"><span class="fab fa-bitcoin"></span>Limitless</a></li>
 		      <li><a href="shilpkaar.html"><span class="fab fa-keycdn"></span>Shilpkaar</a></li>
@@ -82,7 +84,22 @@
     	</nav>
 
       <div id="content" class="p-4 p-md-5" style="overflow: auto;">
-        <h2 class="mb-4">Sherlock</h2>
+        <div class="d-flex">
+          <div>
+            <h2 class="mb-4" id="title"><span class="fas fa-fingerprint"></span>Sherlock</h2>
+
+          </div>
+          <div class="ml-auto">
+
+            <input type="checkbox" class="checkbox" id="checkbox">
+            <label for="checkbox" class="label">
+              <i class="fas fa-moon"></i>
+              <i class='fas fa-sun'></i>
+              <div class='ball'></div>
+            </label>
+          </div>
+
+      </div>
         <p>
           Can You Find My Password Hash?<br>
           <b>Author:</b> <a href="https://twitter.com/razzor_tweet">Razzor</a><br>
@@ -97,7 +114,7 @@
         <div class="row">
           <p id="flagOut" style="margin-left: 15px;"></p>
         </div>
-        <h3>Contract Code</h3>
+        <h3 id="contract-title">Contract Code</h3>
         <pre>
           <code class="language-solidity" style="font-size: 1rem;">  
     pragma solidity ^0.8.0;
@@ -139,7 +156,8 @@
         </pre>
         <h3>Writeups</h3>
 	      <p><a href="https://razzor-writes.medium.com/sherlock-writeup-1fb5521ecd3a">Official Writeup</a><br></p>
-	      <footer>
+        <script src="css/toggle.js"></script>
+        <footer>
           <div class="foot-text">Copyright &copy; 2022 - Cipher Shastra</div>
         </footer>
       </div>

@@ -12,6 +12,8 @@
     <script src="css/solidity.js"></script>
 
 		<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/toggle.css">
+
     <script src="https://kit.fontawesome.com/9ebdf8e948.js" crossorigin="anonymous"></script>
     <script>
       window.setTimeout(() => {
@@ -65,14 +67,29 @@
     	</nav>
 
       <div id="content" class="p-4 p-md-5" style="overflow: auto;">
-        <h2 class="mb-4">Minion</h2>
+        <div class="d-flex">
+          <div>
+            <h2 class="mb-4" id="title"><span class="fab fa-optin-monster"></span>Minion</h2>
+
+          </div>
+          <div class="ml-auto">
+
+            <input type="checkbox" class="checkbox" id="checkbox">
+            <label for="checkbox" class="label">
+              <i class="fas fa-moon"></i>
+              <i class='fas fa-sun'></i>
+              <div class='ball'></div>
+            </label>
+          </div>
+
+      </div>
         <p>
           Call Me Anytime! Wait... Can You Even Call Me?<br>
           <b>Author:</b> <a href="https://twitter.com/razzor_tweet">Razzor</a><br>
           <b>Network:</b> Rinkeby<br>
           <b>Address:</b> <a href="https://rinkeby.etherscan.io/address/0xe3Bf6D5379fD80C44156bAa4f3D8e7F507f6bcd1">0xe3Bf6D5379fD80C44156bAa4f3D8e7F507f6bcd1</a><br>
         </p>
-        <h3>Contract Code</h3>
+        <h3 id="contract-title">Contract Code</h3>
 
         <pre>
         <code class="language-solidity" style="font-size: 1rem;">
@@ -128,7 +145,8 @@ contract Minion{
         </pre>
         <h3>Writeups</h3>
 	      <p><a href="https://prajwalmore.medium.com/hacking-vulnerable-smart-contract-ctf-by-ciphershastra-com-85445c229f6f">Writeup by Prajwal More</a><br></p>
-	      <footer>
+        <script src="css/toggle.js"></script>
+        <footer>
           <div class="foot-text">Copyright &copy; 2022 - Cipher Shastra</div>
         </footer>
       </div>
