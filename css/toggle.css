@@ -1,6 +1,7 @@
       /* Toogle */
       body{
         transition: background 0.2s linear;
+        animation: fadein 0.5s linear 1 forwards;
 
       }
       body.dark {
