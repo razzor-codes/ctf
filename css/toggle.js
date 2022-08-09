@@ -9,6 +9,9 @@ if (storedColor != null && storedColor === 'white' ){
         document.getElementById('title').style.color = storedColor;
         document.getElementById('contract-title').style.color = storedColor;
         document.getElementById('diff-title').style.color = storedColor;
+        document.getElementById('writeups').style.color = storedColor;
+        // document.getElementsById('chip').style.color = storedColor;
+
     }
     catch(err){}
 
@@ -28,6 +31,9 @@ try{
     document.getElementById('title').style.color = toggledColor;
     document.getElementById('contract-title').style.color = toggledColor;
     document.getElementById('diff-title').style.color = toggledColor;
+    document.getElementById('writeups').style.color = toggledColor;
+    // document.getElementsById('chip').style.color = black;
+
 }
 catch(err) {
 
