@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" type="image/png" href="css/CipherLogo.png">
 
-    <meta name="description" content="Dead or Alive? @rinkeby: 0x8B8AD617e1F95f03c971eB1e199FDf8BBfA32124">
+    <meta name="description" content="Learning Resources">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/atom-one-dark-reasonable.min.css">
@@ -58,7 +58,7 @@
     <nav id="navbar_horizon">
       <ul class="list-unstyled components">
         <li><a href="leaderboard.html">Leaderboard</a></li>
-        <li><a href="roadmap.html">Auditor's Roadmap</a></li>
+        <li><a href="#">Auditor's Roadmap</a></li>
         <li><a href="resources.html">Resources</a></li>
         <li class="login-list">          
           <button class="btn btn-primary" id="btn-login">Login</button>
@@ -73,9 +73,9 @@
           <li><a href="sherlock.html"><span class="fas fa-fingerprint"></span> Sherlock</a></li>
           <li><a href="minion.html"><span class="fab fa-optin-monster"></span>Minion</a></li>
           <li><a href="limitless.html"><span class="fab fa-bitcoin"></span>Limitless</a></li>
-		      <li><a href="shilpkaar.html"><span class="fab fa-keycdn"></span>Shilpkaar</a></li>
-	        <li class="active"><a href="#"><span class="fas fa-biohazard"></span>UnDeAD</a></li>
-	        <li><a href="ThirtyFive.html"><span class="fas fa-phone"></span>ThirtyFive</a></li>
+		  <li><a href="shilpkaar.html"><span class="fab fa-keycdn"></span>Shilpkaar</a></li>
+	      <li><a href="UnDeAD.html"><span class="fas fa-biohazard"></span>UnDeAD</a></li>
+	      <li><a href="ThirtyFive.html"><span class="fas fa-phone"></span>ThirtyFive</a></li>
           <li><a href="Maya.html"><span class="fas fa-gas-pump"></span>Maya</a></li>
           <li><a href="Gambler.html"><span class="fas fa-dice"></span>Gambler</a></li>
 
@@ -84,17 +84,8 @@
       <div id="content" class="p-4 p-md-5" style="overflow: auto;">
         <div class="d-flex">
           <div>
-            <h2 class="mb-4" id="title"><span class="fas fa-biohazard"></span>UnDeAD</h2>
+            <h2 class="mb-4" id="title"><span class="fa fa-road"></span> Auditor's Roadmap</h2>
 
-          </div>
-          <div class="ml-auto">
-            <h2 id="diff-title">Difficulty
-              <span class="fas fa-star stars"></span>
-              <span class="fas fa-star stars"></span>
-              <span class="fas fa-star stars"></span>
-              <span class="fas fa-star stars"></span>
-              <span class="far fa-star stars"></span>
-            </h2>
           </div>
           <div class="ml-auto">
 
@@ -107,71 +98,10 @@
           </div>
 
       </div>
-        <p>
-          Dead or Alive?<br>
-          <b>Author:</b> <a href="https://twitter.com/razzor_tweet">Razzor</a><br>
-          <b>Network:</b> Rinkeby<br>
-          <b>Address:</b> <a href="https://rinkeby.etherscan.io/address/0x8B8AD617e1F95f03c971eB1e199FDf8BBfA32124">0x8B8AD617e1F95f03c971eB1e199FDf8BBfA32124</a><br>
-        </p>
-        <h3 id="contract-title">Contract Code</h3>
-        <pre>
-          <code class="language-solidity" style="font-size: 1rem;">
-pragma solidity ^0.8.0;
-
-  interface Mortal {
-  function deadYet() external view returns (bytes32);
-  }
-
-  contract undead{
-    bytes20 public want;
-    bytes20 public mask;
-    address public owner;
-    uint256 public wordLength;
-    mapping (bytes32 => bool) public UnDeAD;
-        
-    constructor(bytes20 _want, bytes20 _mask, uint256 _wordLength){
-        want = _want;
-        mask = _mask;
-        wordLength = _wordLength;
-        owner = msg.sender;
-    }
-     
-    function deadOrAlive(address _addr) external {
-    require(!UnDeAD[keccak256(abi.encodePacked(_addr))], "Not Twice");
-    uint256 size;
-    require(mortality(_addr), "Want Blood");
-    assembly {
-        size := extcodesize(_addr)
-    }
-    require(size == 15);
-    Mortal mortal = Mortal(_addr);
-    bytes32 answerMe = mortal.deadYet();
-    string memory identity = bytes32ToString(answerMe <<= (4 * 52));
-    require(keccak256(abi.encodePacked(identity)) == keccak256(abi.encodePacked("UnDeAD")), "MORTAL!");
-    UnDeAD[keccak256(abi.encodePacked(_addr))] = true;
-    }
-      
-    function mortality(address _addr) internal returns (bool) {
-    bytes20 addr = bytes20(_addr);
-    for (uint256 i = 0; i <= (40 - wordLength); i++) {
-        if (addr & mask == want) {
-            return true;
-        }
-        mask <<= 4;
-        want <<= 4;
-    }
-    return false;
-    }
-  }
-          </code>
-        </pre>
-        <h3 id="writeups">Writeups</h3>
-        <div id="chip">
-          <a href="https://medium.com/coinmonks/ciphershastra-undead-puzzle-e12cc6185198">
-            <img src="https://pbs.twimg.com/profile_images/1466815736660307978/455B69gp_400x400.jpg" alt="Roberto Cano" width="96" height="96">
-          Roberto Cano
-          </a>
-        </div>
+      <p style="text-align: center; font-size: 24px;"><span class="fas fa-search-plus"></span>
+        Zoom In/Out <span class="fas fa-search-minus"></span>
+      </p>
+            <iframe width='100%' height='85%' src='https://embed.coggle.it/diagram/YqLzaiSABzXD4UnZ/ccd063b3134d7fb9ba8d1de339391f232347f575ea28cdd74fd1f0eaea314994' frameborder='0' allowfullscreen></iframe> 
         <script src="css/toggle.js"></script>
         <footer>
           <div class="foot-text">Copyright &copy; 2022 - Cipher Shastra</div>

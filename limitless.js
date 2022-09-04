@@ -9,6 +9,8 @@ const approveButton = document.getElementById('btn-approve');
 const verifyButton = document.getElementById('btn-verify');
 const smartCheck = document.getElementById('smart');
 const tokenNumber = document.getElementById('inputToken')
+const loginButton = document.getElementById('btn-login');
+const userAdd = document.getElementById('user');
 const tokenAddress = '0x1472560646bd05578a383Ae3bb014FE33b0F9Dd3';
 const tokenSymbol = 'RAZ';
 const tokenDecimals = 18;
@@ -18,6 +20,7 @@ const tokenCalc = 10**tokenDecimals;
 const maxApproval = "115792089237316195423570985008687907853269984665640564039457584007913129639935";
 let accounts;
 const isMetaMaskConnected = () => accounts && accounts.length > 0
+let session = sessionStorage.getItem('session')
 
 
 async function loadContract(){
@@ -453,12 +456,12 @@ async function updateButtons(){
 tickerButton.disabled = true;
 faucetButton.disabled = true;
 accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    if (isMetaMaskConnected()) {
+    if (isMetaMaskConnected() && session==='loggedIn') {
     	connectButton.innerText = "Connected";
         connectButton.disabled = true;
 		accountStatus.innerHTML = accounts;
-					tickerButton.disabled = false;
-    		faucetButton.disabled = false;
+		tickerButton.disabled = false;
+    	faucetButton.disabled = false;
 		let rinkeby = (ethereum.chainId == "0x4");
 		chainStatus.innerHTML = ethereum.chainId;
 		window.web3 = new Web3(window.ethereum);
@@ -468,12 +471,20 @@ accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     		faucetButton.disabled = true;
 			inform.innerHTML = "The Contract is deployed on Rinkeby. Kindly Switch to Rinkeby";
 		}
+		userAdd.innerText = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
+		userAdd.style.display = "block"
+		loginButton.innerText = 'Logout'
+		loginButton.removeEventListener('click', login)
+		setTimeout(() => {
+			loginButton.addEventListener('click', logout)
+		  }, 200)
 
     }
     else{
     		tickerButton.disabled = true;
     		faucetButton.disabled = true;
-
+			userAdd.style.display = "none"
+			loginButton.addEventListener('click', login)
     }
 
 }
@@ -529,8 +540,6 @@ try{
 
   }
 
-
-
 catch(error)
 { 
 	console.error(error);
@@ -558,11 +567,16 @@ catch(error)
 stakeButton.addEventListener('click', async() => {
 
 try{
+	  if(tokenNumber.value){
+		let tokenAmountToStake = web3.utils.toWei(tokenNumber.value);
+		let sender = accounts.toString();
+		await window.contract.methods.transferFrom(sender, tokenAddress, tokenAmountToStake.toString()).send({ from: sender }); 
+	  }
+	  else{
+		console.log("Invalid Token Number")
+		return
+	  }
 	  
-	  let tokenAmountToStake = web3.utils.toWei(tokenNumber.value);
-	  let sender = accounts.toString();
-      await window.contract.methods.transferFrom(sender, tokenAddress, tokenAmountToStake.toString()).send({ from: sender });
-
   }
 
 
@@ -599,17 +613,54 @@ catch(error)
 }
 
 });
+async function login(){
+    let newAccount
+    try{
+        newAccount = await ethereum.request({ method: 'eth_requestAccounts' });
+    }
+    catch(error)
+    {
+        console.error(error);
+    }   
 
+    if(!newAccount) {return}
+	handleNewAccounts(newAccount);
+}
+
+async function logout(){
+	tickerButton.disabled = true;
+	faucetButton.disabled = true;
+	userAdd.style.display = "none"
+	connectButton.innerText = "Connect Wallet"
+	connectButton.disabled = false;
+    loginButton.innerText = 'Login'
+    userAdd.style.display = "none"
+    accounts = null
+    sessionStorage.setItem('session', 'loggedOut')
+    loginButton.removeEventListener('click', logout)
+    setTimeout(() => {
+        loginButton.addEventListener('click', login)
+      }, 200)
+}
 
 
   function handleNewAccounts (newAccounts) {
     accounts = newAccounts;
     accountStatus.innerHTML = accounts;
         if (isMetaMaskConnected()) {
-        	connectButton.innerText = "Connected";
+        connectButton.innerText = "Connected";
         connectButton.disabled = true;
         tickerButton.disabled = false;
     	faucetButton.disabled = false;
+
+		userAdd.innerText = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
+		userAdd.style.display = "block"
+		loginButton.innerText = 'Logout'
+		sessionStorage.setItem('session', 'loggedIn')
+		loginButton.removeEventListener('click', login)
+		setTimeout(() => {
+			loginButton.addEventListener('click', logout)
+		  }, 200)
     }
   
   }
@@ -617,6 +668,7 @@ catch(error)
 ethereum.on('accountsChanged', (newAccount) => {
 		accounts = newAccount;
 		accountStatus.innerHTML = newAccount;
+		userAdd.innerHTML = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
 		if(!newAccount.length){
 			inform.innerHTML = "Disconnected";
 			connectButton.disabled = false;

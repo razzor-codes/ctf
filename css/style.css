@@ -8212,6 +8212,47 @@ h1, h2, h3, h4, h5,
 .wrapper {
   width: 100%; }
 
+#navbar_horizon{
+  background: #3e64ff;
+  color: #fff;
+}
+#navbar_horizon ul{
+  overflow: hidden;
+  margin-bottom: 4px ;
+}
+#navbar_horizon li{
+  float: left;
+
+}
+#navbar_horizon li.login-list{
+  font-size: 18px;
+  float: right;
+  padding-right: 16px;
+  display: block;
+}
+
+#navbar_horizon li.login-list button{
+  font-size: 18px;
+}
+
+#navbar_horizon li.login-list p#user{
+  font-size: 18px;
+  margin-top: 4px;
+  margin-bottom: 0px;
+}
+
+
+
+#navbar_horizon li a{
+  display: block;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
 #sidebar {
   min-width: 270px;
   max-width: 270px;
