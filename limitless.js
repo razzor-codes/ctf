@@ -665,7 +665,8 @@ async function logout(){
   
   }
 
-ethereum.on('accountsChanged', (newAccount) => {
+try{
+	ethereum.on('accountsChanged', (newAccount) => {
 		accounts = newAccount;
 		accountStatus.innerHTML = newAccount;
 		userAdd.innerHTML = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
@@ -677,6 +678,13 @@ ethereum.on('accountsChanged', (newAccount) => {
     		faucetButton.disabled = true;
 		}
 });
+
+}
+catch(erro){
+	console.error(error);
+
+}
+
 
 ethereum.on('chainChanged', (chainId) => {
 chainStatus.innerHTML = chainId;

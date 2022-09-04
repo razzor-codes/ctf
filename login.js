@@ -53,19 +53,17 @@ async function logout(){
       }, 200)
 }
 
-
-
-     ethereum.on('accountsChanged', (newAccount) => {
+try{
+    ethereum.on('accountsChanged', (newAccount) => {
 		accounts = newAccount;
         userAdd.innerHTML = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
-		// if(!newAccount.length){
-		// 	inform.innerHTML = "Disconnected";
-		// 	connectButton.disabled = false;
-		// 	connectButton.innerHTML = "Connect Wallet";
-		// 	tickerButton.disabled = true;
-    	// 	faucetButton.disabled = true;
-		// }
-});
+    });
+}
+catch(error)
+{
+    console.error(error);
+}   
+
 
 window.addEventListener('load', () => {
     loadButtons()
