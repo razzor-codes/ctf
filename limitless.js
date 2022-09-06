@@ -455,21 +455,21 @@ async function updateButtons(){
 
 tickerButton.disabled = true;
 faucetButton.disabled = true;
-accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    if (isMetaMaskConnected() && session==='loggedIn') {
+    if (isMetaMaskConnected && session==='loggedIn') {
+		accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     	connectButton.innerText = "Connected";
         connectButton.disabled = true;
-		accountStatus.innerHTML = accounts;
+		accountStatus.innerText = accounts;
 		tickerButton.disabled = false;
     	faucetButton.disabled = false;
 		let rinkeby = (ethereum.chainId == "0x4");
-		chainStatus.innerHTML = ethereum.chainId;
+		chainStatus.innerText = ethereum.chainId;
 		window.web3 = new Web3(window.ethereum);
 		window.contract = await loadContract();
 		if(!rinkeby){
 			tickerButton.disabled = true;
     		faucetButton.disabled = true;
-			inform.innerHTML = "The Contract is deployed on Rinkeby. Kindly Switch to Rinkeby";
+			inform.innerText = "The Contract is deployed on Rinkeby. Kindly Switch to Rinkeby";
 		}
 		userAdd.innerText = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
 		userAdd.style.display = "block"
@@ -597,10 +597,10 @@ try{
 	  let allowance = await window.contract.methods.allowance(sender, tokenAddress).call();
 	  let accountBal = await window.contract.methods.balanceOf(sender).call();
       if(allowance>accountBal){
-      	smartCheck.innerHTML = "Not So Smart, my friend";
+      	smartCheck.innerText = "Not So Smart, my friend";
       }
       else{
-      	smartCheck.innerHTML = "Very Smart";
+      	smartCheck.innerText = "Very Smart";
       }
 
   }
@@ -628,31 +628,42 @@ async function login(){
 }
 
 async function logout(){
+	inform.innerText = "Disconnected";
+	connectButton.disabled = false;
+	connectButton.innerText = "Connect Wallet";
 	tickerButton.disabled = true;
 	faucetButton.disabled = true;
+	accountStatus.innerText = 'None';
+	chainStatus.innerText = 'None';
 	userAdd.style.display = "none"
-	connectButton.innerText = "Connect Wallet"
-	connectButton.disabled = false;
-    loginButton.innerText = 'Login'
-    userAdd.style.display = "none"
-    accounts = null
-    sessionStorage.setItem('session', 'loggedOut')
-    loginButton.removeEventListener('click', logout)
-    setTimeout(() => {
-        loginButton.addEventListener('click', login)
-      }, 200)
+	loginButton.innerText = 'Login'
+	accounts = null
+	sessionStorage.setItem('session', 'loggedOut')
+	loginButton.removeEventListener('click', logout)
+	setTimeout(() => {
+		loginButton.addEventListener('click', login)
+	  }, 200)
 }
 
 
-  function handleNewAccounts (newAccounts) {
+  async function handleNewAccounts (newAccounts) {
     accounts = newAccounts;
-    accountStatus.innerHTML = accounts;
-        if (isMetaMaskConnected()) {
+        if (isMetaMaskConnected) {
+		inform.innerText = "";
+		accountStatus.innerText = accounts;
         connectButton.innerText = "Connected";
         connectButton.disabled = true;
         tickerButton.disabled = false;
     	faucetButton.disabled = false;
-
+		let rinkeby = (ethereum.chainId == "0x4");
+		chainStatus.innerText = ethereum.chainId;
+		window.web3 = new Web3(window.ethereum);
+		window.contract = await loadContract();
+		if(!rinkeby){
+			tickerButton.disabled = true;
+    		faucetButton.disabled = true;
+			inform.innerText = "The Contract is deployed on Rinkeby. Kindly Switch to Rinkeby";
+		}
 		userAdd.innerText = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
 		userAdd.style.display = "block"
 		loginButton.innerText = 'Logout'
@@ -667,15 +678,29 @@ async function logout(){
 
 try{
 	ethereum.on('accountsChanged', (newAccount) => {
-		accounts = newAccount;
-		accountStatus.innerHTML = newAccount;
-		userAdd.innerHTML = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
+
 		if(!newAccount.length){
-			inform.innerHTML = "Disconnected";
+			inform.innerText = "Disconnected";
 			connectButton.disabled = false;
-			connectButton.innerHTML = "Connect Wallet";
+			connectButton.innerText = "Connect Wallet";
 			tickerButton.disabled = true;
     		faucetButton.disabled = true;
+			accountStatus.innerText = 'None';
+			chainStatus.innerText = 'None';
+			userAdd.style.display = "none"
+			loginButton.innerText = 'Login'
+			accounts = null
+			sessionStorage.setItem('session', 'loggedOut')
+			loginButton.removeEventListener('click', logout)
+			setTimeout(() => {
+				loginButton.addEventListener('click', login)
+			  }, 200)
+		}
+		else{
+			inform.innerText = "";
+			accounts = newAccount;
+			accountStatus.innerText = newAccount;
+			userAdd.innerText = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
 		}
 });
 
@@ -687,15 +712,15 @@ catch(erro){
 
 
 ethereum.on('chainChanged', (chainId) => {
-chainStatus.innerHTML = chainId;
+chainStatus.innerText = chainId;
 let rinkeby = (ethereum.chainId == "0x4");
 		if(!rinkeby){
 			tickerButton.disabled = true;
     		faucetButton.disabled = true;
-			inform.innerHTML = "The Contract is deployed on Rinkeby. Kindly Switch to Rinkeby";
+			inform.innerText = "The Contract is deployed on Rinkeby. Kindly Switch to Rinkeby";
 		}
 		else{
-			inform.innerHTML = "";
+			inform.innerText = "";
 			tickerButton.disabled = false;
     		faucetButton.disabled = false;
 		}
