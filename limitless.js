@@ -455,8 +455,10 @@ async function updateButtons(){
 
 tickerButton.disabled = true;
 faucetButton.disabled = true;
-    if (isMetaMaskConnected && session==='loggedIn') {
+	if(session==='loggedIn'){
 		accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+	}
+    if (isMetaMaskConnected()) {
     	connectButton.innerText = "Connected";
         connectButton.disabled = true;
 		accountStatus.innerText = accounts;
@@ -533,27 +535,44 @@ try {
 });
 
 faucetButton.addEventListener('click', async() => {
+	inform.innerText="";
 
-try{
-	  let sender = accounts.toString();
-      await window.contract.methods.faucet().send({ from: sender });
+try{  		
+	faucetButton.firstElementChild.style.display = "inline-block";
+	let sender = accounts.toString();
+    await window.contract.methods.faucet().send({ from: sender });
+	faucetButton.firstElementChild.style.display = "none";
 
   }
 
 catch(error)
 { 
 	console.error(error);
+}
+finally{
+	faucetButton.firstElementChild.style.display = "none";
+
 }
 
 });
 
 approveButton.addEventListener('click', async() => {
+	inform.innerText="";
 
 try{
-	  
-	  let sender = accounts.toString();
-	  await window.contract.methods.approve(tokenAddress, maxApproval).send({ from: sender });
+	if(isMetaMaskConnected()){
+		approveButton.firstElementChild.style.display = "inline-block";
 
+		let sender = accounts.toString();
+		await window.contract.methods.approve(tokenAddress, maxApproval).send({ from: sender });
+		approveButton.firstElementChild.style.display = "none";
+
+	}  
+
+	else{
+		inform.innerText = "Disconnected";
+		return
+	}
   }
 
 
@@ -562,28 +581,45 @@ catch(error)
 	console.error(error);
 }
 
+finally{
+	approveButton.firstElementChild.style.display = "none";
+
+}
+
 });
 
 stakeButton.addEventListener('click', async() => {
-
+inform.innerText="";
 try{
+	if(isMetaMaskConnected()){
 	  if(tokenNumber.value){
+		stakeButton.firstElementChild.style.display = "inline-block";
+
 		let tokenAmountToStake = web3.utils.toWei(tokenNumber.value);
 		let sender = accounts.toString();
 		await window.contract.methods.transferFrom(sender, tokenAddress, tokenAmountToStake.toString()).send({ from: sender }); 
+		stakeButton.firstElementChild.style.display = "none";
+
 	  }
 	  else{
-		console.log("Invalid Token Number")
+		inform.innerText = "Invalid Token Number";
 		return
 	  }
+	}
+	else{
+		inform.innerText = "Disconnected";
+		return
+	}
 	  
   }
-
-
 
 catch(error)
 { 
 	console.error(error);
+}
+finally{
+	stakeButton.firstElementChild.style.display = "none";
+
 }
 
 });
@@ -592,16 +628,24 @@ verifyButton.addEventListener('click', async() => {
 
 try{
 	  
-	  
+	  if(isMetaMaskConnected()){
+
+	  verifyButton.firstElementChild.style.display = "inline-block";
 	  let sender = accounts.toString();
 	  let allowance = await window.contract.methods.allowance(sender, tokenAddress).call();
 	  let accountBal = await window.contract.methods.balanceOf(sender).call();
-      if(allowance>accountBal){
+	  verifyButton.firstElementChild.style.display = "none";
+      if(BigInt(allowance)>BigInt(accountBal)){
       	smartCheck.innerText = "Not So Smart, my friend";
       }
       else{
       	smartCheck.innerText = "Very Smart";
       }
+	}
+	  else{
+		inform.innerText = "Disconnected";
+		return
+	}
 
   }
 
@@ -611,6 +655,8 @@ catch(error)
 { 
 	console.error(error);
 }
+
+
 
 });
 async function login(){
@@ -648,7 +694,7 @@ async function logout(){
 
   async function handleNewAccounts (newAccounts) {
     accounts = newAccounts;
-        if (isMetaMaskConnected) {
+        if (isMetaMaskConnected()) {
 		inform.innerText = "";
 		accountStatus.innerText = accounts;
         connectButton.innerText = "Connected";

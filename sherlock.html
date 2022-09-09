@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/atom-one-dark-reasonable.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
-    <script src="css/solidity.js"></script>
+    <script src="js/solidity.js"></script>
 
 		<link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/toggle.css">
@@ -30,7 +30,7 @@
     <script>
       hashedFlag = "14d908c6634367ff6daeaf92a91d8b3beda61fe72da2fecffb27f623c70a9c61";
       async function Verify(){
-      const flag = document.getElementById("flag").value;
+      const flag = document.getElementById("flag").value.toLowerCase();
       const arrayBuffer = new TextEncoder().encode(flag);
       const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer); // hash the message
       const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
@@ -182,13 +182,13 @@
           CipherShastra
           </a>
         </div>  
-        <script src="css/toggle.js"></script>
+        <script src="js/toggle.js"></script>
         <footer>
           <div class="foot-text">Copyright &copy; 2022 - Cipher Shastra</div>
         </footer>
       </div>
 		</div>
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.3.0/dist/web3.min.js"></script>
-    <script type="text/javascript" src="login.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
   </body>
 </html>

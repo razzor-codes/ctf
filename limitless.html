@@ -93,7 +93,10 @@
         <div class="row">
           <button class="btn btn-primary" id="btn-connect" style="width:  18%;"  >Connect Wallet</button>
           <button class="btn btn-primary" id="btn-ticker" style="margin-left: 10px; width:  18%">Add Token to Metamask</button>
-          <button class="btn btn-primary" id="btn-faucet" style="margin-left: 10px; width:  18%;">Get Some Tokens</button>
+          <button class="btn btn-primary" id="btn-faucet" style="margin-left: 10px; width:  18%;">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+            Get Some Tokens
+          </button>
         </div>
         <div class="row" style="margin-top: 20px;">
           <p>Stake Tokens to earn over <b>1000%APY</b><br>
@@ -103,8 +106,14 @@
         </div>
         <div class="row">
           <input type="number" id="inputToken" placeholder="Enter Some Tokens" min="1" max="10000">
-          <button class="btn btn-primary" id="btn-approve" style="margin-left: 10px; width:  18%;">Approve</button>
-          <button class="btn btn-primary" id="btn-stake" style="margin-left: 10px; width:  18%;">Stake</button>
+          <button class="btn btn-primary" id="btn-approve" style="margin-left: 10px; width:  18%;">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+            Approve
+          </button>
+          <button class="btn btn-primary" id="btn-stake" style="margin-left: 10px; width:  18%;">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+            Stake
+          </button>
         </div>
         <div class="row" style="margin-top: 20px;">
           <b><p>Account:  </p></b><p id="account-stat">None</p>
@@ -116,10 +125,13 @@
           <p id="info" style="color: red"></p>
         </div>
         <div class="row">
-          <button class="btn btn-primary" id="btn-verify" style="width: 18%;">Verify Your Smartness</button>
+          <button class="btn btn-primary" id="btn-verify" style="width: 18%;">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+            Verify Your Smartness
+          </button>
           <p id="smart" style="margin-left: 15px;"></p>
         </div>
-        <script src="css/toggle.js"></script>
+        <script src="js/toggle.js"></script>
         <footer>
           <div class="foot-text">Copyright &copy; 2022 - Cipher Shastra</div>
         </footer>

@@ -1,8 +1,11 @@
 let storedColor = sessionStorage.getItem('toggledColor');
+let checked = sessionStorage.getItem('checkbox');
+checkbox = document.getElementById('checkbox');
 
 let theme = sessionStorage.getItem('theme');
 if (theme === 'dark'){
     document.body.classList.toggle('dark');
+    checkbox.checked = checked;
 }
 if (storedColor != null && storedColor === 'white' ){
     try{
@@ -16,7 +19,6 @@ if (storedColor != null && storedColor === 'white' ){
     catch(err){}
 
 }
-checkbox = document.getElementById('checkbox');
 
 checkbox.addEventListener('change', ()=>{
 var color = document.getElementById('title').style.color;
@@ -27,6 +29,7 @@ var toggledColor = color==='white'?'black':'white';
 
 sessionStorage.setItem('toggledColor', toggledColor);
 sessionStorage.setItem('theme', document.body.classList.value);
+sessionStorage.setItem('checkbox', checkbox.checked);
 try{
     document.getElementById('title').style.color = toggledColor;
     document.getElementById('contract-title').style.color = toggledColor;

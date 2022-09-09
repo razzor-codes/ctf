@@ -4,12 +4,15 @@ let accounts;
 const isMetaMaskConnected = () => accounts && accounts.length > 0
 let session = sessionStorage.getItem('session')
 
-function loadButtons(){
+async function loadButtons(){
     if (!window.ethereum) {
         loginButton.innerText = 'Metamask Not Found'
         return false
     }
-    if(isMetaMaskConnected && session==='loggedIn'){
+    if(session==='loggedIn'){
+        accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+    }
+    if(isMetaMaskConnected()){
         login()
     }
     else{
@@ -55,8 +58,20 @@ async function logout(){
 
 try{
     ethereum.on('accountsChanged', (newAccount) => {
+        if(!newAccount.length){
+            loginButton.innerText = 'Login'
+            userAdd.style.display = "none"
+            accounts = null
+            sessionStorage.setItem('session', 'loggedOut')
+            loginButton.removeEventListener('click', logout)
+            setTimeout(() => {
+                loginButton.addEventListener('click', login)
+              }, 200)
+        }
+        else{
 		accounts = newAccount;
         userAdd.innerHTML = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
+        }
     });
 }
 catch(error)
