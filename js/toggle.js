@@ -1,6 +1,6 @@
 let storedColor = sessionStorage.getItem('toggledColor');
 let checked = sessionStorage.getItem('checkbox');
-let dflex = document.querySelector("#content").firstElementChild;
+let dflex = document.querySelector("#content .dynamicW");
 checkbox = document.getElementById('checkbox');
 
 let theme = sessionStorage.getItem('theme');
