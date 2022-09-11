@@ -8253,6 +8253,20 @@ h1, h2, h3, h4, h5,
   padding-top: 5px;
   padding-bottom: 5px;
 }
+#sidebar.active::-webkit-scrollbar, body::-webkit-scrollbar {
+  width: 8px;
+}
+#sidebar.active::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #3e64ff;
+  border: 1px solid #000;
+}
+#sidebar.active::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+  border: 1px solid #000;
+  padding: 2px 0;
+  background-color: #404040;
+}
 #sidebar {
   min-width: 270px;
   max-width: 270px;
@@ -8262,6 +8276,8 @@ h1, h2, h3, h4, h5,
   -o-transition: all 0.3s;
   transition: all 0.3s; }
   #sidebar.active {
+    overflow-y: scroll;
+    overflow-x: hidden;
     min-width: 80px;
     max-width: 80px;
     text-align: center; }
