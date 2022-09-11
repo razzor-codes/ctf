@@ -86,19 +86,30 @@
         width: 50px;
         border-radius: 50%;
       }
+
       @media only screen and (max-width: 600px) {
-        #content .d-flex div h2, 
-        #navbar_horizon ul .login-list button,
-        #navbar_horizon ul .login-list #user,
         p,
         #contract-title,
         #writeups
         {
-          font-size: 20px;
+          font-size: 18px;
         }
 
-        #content .d-flex .ml-auto label{
-          margin-top: 5px;
+        #content div h2{
+          font-size: 24px;
+        }
+        #content .row label{
+          margin-left: 15px;
+          margin-bottom: 15px;
+        }
+
+        #navbar_horizon li.login-list{
+          float: left;
+          padding-right: 0px;
+        }
+
+        #navbar_horizon ul li a{
+          padding: 4px;
         }
 
         #chip{

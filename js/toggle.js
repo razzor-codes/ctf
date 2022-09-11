@@ -1,5 +1,6 @@
 let storedColor = sessionStorage.getItem('toggledColor');
 let checked = sessionStorage.getItem('checkbox');
+let dflex = document.querySelector("#content").firstElementChild;
 checkbox = document.getElementById('checkbox');
 
 let theme = sessionStorage.getItem('theme');
@@ -42,4 +43,35 @@ catch(err) {
 
 }
 
+});
+
+
+
+// check this
+// const container = document.querySelector(".bg-container");
+
+function checkWidth() {
+  if (window.innerWidth < 600) {
+    dflex.classList.remove('d-flex');
+    dflex.children[0].classList.add('row');
+    dflex.children[1].classList.remove('ml-auto');
+    dflex.children[1].classList.add('row');
+    dflex.children[2].classList.remove('ml-auto');
+    dflex.children[2].classList.add('row');
+  } else {
+    dflex.classList.add('d-flex');
+    dflex.children[0].classList.remove('row');
+    dflex.children[1].classList.add('ml-auto');
+    dflex.children[1].classList.remove('row');
+    dflex.children[2].classList.add('ml-auto');
+    dflex.children[2].classList.remove('row');
+  }
+}
+
+window.addEventListener('load', () => {
+    checkWidth()
+  });
+
+window.addEventListener('resize', () => {
+  checkWidth()
 });

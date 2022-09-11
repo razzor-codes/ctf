@@ -455,6 +455,10 @@ async function updateButtons(){
 
 tickerButton.disabled = true;
 faucetButton.disabled = true;
+if (!window.ethereum) {
+	loginButton.innerText = 'Metamask Not Found'
+	return false
+}
 	if(session==='loggedIn'){
 		accounts = await ethereum.request({ method: 'eth_requestAccounts' });
 	}
@@ -751,26 +755,32 @@ try{
 });
 
 }
-catch(erro){
+catch(error){
 	console.error(error);
 
 }
 
+try{
+	ethereum.on('chainChanged', (chainId) => {
+		chainStatus.innerText = chainId;
+		let rinkeby = (ethereum.chainId == "0x4");
+				if(!rinkeby){
+					tickerButton.disabled = true;
+					faucetButton.disabled = true;
+					inform.innerText = "The Contract is deployed on Rinkeby. Kindly Switch to Rinkeby";
+				}
+				else{
+					inform.innerText = "";
+					tickerButton.disabled = false;
+					faucetButton.disabled = false;
+				}
+		});
+}
+catch(error){
+	console.log(error)
+}
 
-ethereum.on('chainChanged', (chainId) => {
-chainStatus.innerText = chainId;
-let rinkeby = (ethereum.chainId == "0x4");
-		if(!rinkeby){
-			tickerButton.disabled = true;
-    		faucetButton.disabled = true;
-			inform.innerText = "The Contract is deployed on Rinkeby. Kindly Switch to Rinkeby";
-		}
-		else{
-			inform.innerText = "";
-			tickerButton.disabled = false;
-    		faucetButton.disabled = false;
-		}
-});
+
 
 
 window.addEventListener('load', updateButtons);
