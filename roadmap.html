@@ -15,8 +15,10 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/toggle.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome-animation@1.1.1/css/font-awesome-animation.min.css">
+
     <script src="https://kit.fontawesome.com/9ebdf8e948.js" crossorigin="anonymous"></script>
-    <script>
+    <!-- <script>
       window.setTimeout(() => {
       if(!window.hljs){
         console.error("HighlightJS not loaded")
@@ -25,7 +27,7 @@
       window.hljs.highlightAll()
       }
       ,200)
-    </script>
+    </script> -->
 
     <style>
       p, code{
@@ -64,8 +66,13 @@
           <button class="btn btn-primary" id="btn-login">Login</button>
         </li>
         <li class="login-list"><p id="user"></p></li>
+        <li class="login-list">
+          <img id="user-image" style="cursor: pointer;"/>
+        </li>
       </ul>
   </nav>
+  <div id="notif" >CipherShastra runs on Goerli. Kindly switch to it!</div>
+
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar" class="active">
         <ul class="list-unstyled components mb-5">

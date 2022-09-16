@@ -86,7 +86,37 @@
         width: 50px;
         border-radius: 50%;
       }
-
+      /* alert */
+      .visible {
+          animation: movein 0.5s ease forwards, moveout 0.5s 6s ease forwards;
+      }
+      
+      #notif {
+        width: 27vw;
+        height: 6vh;
+        background: #db1a17;
+        color: white;
+        border-radius: 3px;
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 7vh;
+        padding: 1vw;
+        right: -600px;
+      }
+      
+      
+      @keyframes movein {
+        from { right: -600px; }
+        to   { right: 10px; }
+      }
+      
+      @keyframes moveout {
+        from { right: 10px; }
+        to   { right: -600px; }
+      }
       @media only screen and (max-width: 600px) {
         p,
         #contract-title,
@@ -96,7 +126,7 @@
         }
 
         #content div h2{
-          font-size: 24px;
+          font-size: 22px;
         }
         #content .row label{
           margin-left: 15px;
@@ -108,12 +138,24 @@
           padding-right: 0px;
         }
 
+        #navbar_horizon li.login-list img#user-image{
+          padding-left: 15px;
+          margin-top: 2px;
+        }
+
         #navbar_horizon ul li a{
           padding: 4px;
         }
 
         #chip{
           height: 40px;
+        }
+
+        #notif {
+          width: 60vw;
+          height: 5vh;
+          font-size: 12px;
+          top: 15vh;
         }
 
       }

@@ -11,9 +11,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/atom-one-dark-reasonable.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
     <script src="js/solidity.js"></script>
+    <script src="circuit/snarkjs.min.js"></script>
 
 		<link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/toggle.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome-animation@1.1.1/css/font-awesome-animation.min.css">
 
     <script src="https://kit.fontawesome.com/9ebdf8e948.js" crossorigin="anonymous"></script>
     <script>
@@ -27,18 +29,6 @@
       ,200)
     </script>
 
-    <script>
-      hashedFlag = "14d908c6634367ff6daeaf92a91d8b3beda61fe72da2fecffb27f623c70a9c61";
-      async function Verify(){
-      const flag = document.getElementById("flag").value.toLowerCase();
-      const arrayBuffer = new TextEncoder().encode(flag);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer); // hash the message
-      const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
-      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-      if (hashHex == hashedFlag) document.getElementById("flagOut").innerHTML = "Congrats! You solved the challenge";
-      else document.getElementById("flagOut").innerHTML = "Incorrect Flag";
-      } 
-    </script>
     <style>
       p, code{
         font-size: 18px;
@@ -78,8 +68,13 @@
           <button class="btn btn-primary" id="btn-login">Login</button>
         </li>
         <li class="login-list"><p id="user"></p></li>
+        <li class="login-list">
+          <img id="user-image" style="cursor: pointer;"/>
+        </li>
       </ul>
   </nav>
+  <div id="notif" >CipherShastra runs on Goerli. Kindly switch to it!</div>
+
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar" class="active">
         <ul class="list-unstyled components mb-5">
@@ -131,8 +126,11 @@
           <b>Address:</b> <a href="https://rinkeby.etherscan.io/address/0x3a6CAE3af284C82934174F693151842Bc71b02b2">0x3a6CAE3af284C82934174F693151842Bc71b02b2</a><br>
         </p>
         <div class="row">
-          <input type="text" id="flag" placeholder="Enter the flag" style="margin-left: 15px">
-          <button class="btn btn-primary" id="btn-verify" style="width: 130px" onclick="Verify()">Verify Flag</button>
+          <input type="text" id="flag" placeholder="Enter the flag: 0x..." style="margin-left: 15px">
+          <button class="btn btn-primary" id="btn-verify" style="width: 130px" onclick="Verify()">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+            Verify Flag
+          </button>
         </div>
         <div class="row">
           <p id="flagOut" style="margin-left: 15px;"></p>
@@ -193,4 +191,34 @@
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.3.0/dist/web3.min.js"></script>
     <script type="text/javascript" src="js/login.js"></script>
   </body>
+  <script>
+    // hashedFlag = "14d908c6634367ff6daeaf92a91d8b3beda61fe72da2fecffb27f623c70a9c61";
+    sherlockZKVerifier = "0xECD35d6011a6bb85E7422B9B9eBd6d25CE40a9Df"; //goerli
+    async function Verify(){
+      const flag = document.getElementById("flag").value.toLowerCase();
+      const arrayBuffer = new TextEncoder().encode(flag);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer); // hash the message
+      const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      try{
+        document.getElementById('btn-verify').firstElementChild.style.display = "inline-block";
+        const { proof, publicSignals } =
+        await snarkjs.plonk.fullProve( { a: BigInt("0x"+ hashHex, 16)}, "circuit/circuit.wasm", "circuit/circuit_final.zkey");
+        calldata = await snarkjs.plonk.exportSolidityCallData(proof, publicSignals);
+        params = calldata.split(',');
+        // leaderboard logic here
+
+        document.getElementById('btn-verify').firstElementChild.style.display = "none";
+        document.getElementById("flagOut").innerHTML = "Congrats! You solved the challenge";
+      }
+      catch(error){
+          document.getElementById("flagOut").innerHTML = "Incorrect Flag"; 
+        }
+      finally{
+        document.getElementById('btn-verify').firstElementChild.style.display = "none";
+
+      }
+
+    } 
+  </script>
 </html>
