@@ -5,13 +5,17 @@ const faucetButton = document.getElementById('btn-faucet');
 const stakeButton = document.getElementById('btn-stake');
 const approveButton = document.getElementById('btn-approve');
 const verifyButton = document.getElementById('btn-verify');
-const smartCheck = document.getElementById('smart');
+// const smartCheck = document.getElementById('smart');
 const tokenNumber = document.getElementById('inputToken')
 const loginButton = document.getElementById('btn-login');
 const chainSwitchButton = document.getElementById('btn-chain');
 const userAdd = document.getElementById('user');
 const userImage = document.getElementById('user-image');
 const slideout = document.getElementById('notif');
+const dropdown = document.querySelector('.dropdown');
+const drop_name = document.getElementById('drop-name')
+const usernameButton = document.getElementById('btn-username');
+const usernameText = document.getElementById('username-change');
 const tokenAddress = '0xA64f44993AdBaC9b47A527770F2A657c2194F565';
 const tokenSymbol = 'RAZ';
 const tokenDecimals = 18;
@@ -24,7 +28,9 @@ const isMetaMaskConnected = () => accounts && accounts.length > 0
 let session = sessionStorage.getItem('session')
 let source = "https://ui-avatars.com/api/?background=282c34&color=fff&rounded=true&size=33&name=";
 let usernamesContract = "0xeC3B1733fbF131058846764cD2beBAac47168b0c";
-
+const wrongchainnotif = "CipherShastra runs on Goerli. Kindly switch to it!";
+const wrongusernamenotif = "Username should be less than 16 characters";
+const red = "#db1a17";
 async function loadUsernameContract(){
     return await new window.web3.eth.Contract([
         {
@@ -44,6 +50,19 @@ async function loadUsernameContract(){
                 }
             ],
             "stateMutability": "view",
+            "type": "function"
+        },
+		{
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "_username",
+                    "type": "string"
+                }
+            ],
+            "name": "setUsername",
+            "outputs": [],
+            "stateMutability": "nonpayable",
             "type": "function"
         }
     ], usernamesContract);
@@ -387,7 +406,7 @@ async function loadTokenContract(){
 }
 
 async function updateButtons(){
-
+	preload();
 tickerButton.disabled = true;
 faucetButton.disabled = true;
 approveButton.disabled = true;
@@ -427,10 +446,13 @@ else{
 			stakeButton.disabled = true;
 			inform.innerText = "The Contract is deployed on Goerli.";
 			chainSwitchButton.style.display = "inline-block";
+			slideout.innerText = wrongchainnotif;
+			slideout.style.background = red;
 			slideout.classList.remove('visible');
 			slideout.offsetWidth;
 			slideout.classList.add('visible');
-			userImage.style.display = "none"
+			userImage.style.display = "none";
+			username = null;
 
 		}
 		else{
@@ -463,6 +485,7 @@ else{
 			stakeButton.disabled = true;
 			userAdd.style.display = "none"
 			userImage.style.display = "none"
+			username = null;
 			loginButton.addEventListener('click', login)
     }
 
@@ -518,14 +541,23 @@ faucetButton.addEventListener('click', async() => {
 try{  		
 	faucetButton.firstElementChild.style.display = "inline-block";
 	let sender = accounts.toString();
+	await window.contract.methods.faucet().call({from: accounts.toString()})
     await window.contract.methods.faucet().send({ from: sender });
 	faucetButton.firstElementChild.style.display = "none";
 
   }
 
 catch(error)
-{ 
-	console.error(error);
+{ 	if(error.message.includes('Max token request exceeded')){
+    slideout.innerText = 'Max token request exceeded';
+	slideout.style.background = red;
+    slideout.classList.remove('visible');
+    slideout.offsetWidth;
+    slideout.classList.add('visible');
+	}
+	else{
+		console.error(error);
+	}
 }
 finally{
 	faucetButton.firstElementChild.style.display = "none";
@@ -550,7 +582,11 @@ try{
 	}  
 
 	else{
-		inform.innerText = "Disconnected";
+		slideout.innerText = 'Disconnected';
+		slideout.style.background = red;
+		slideout.classList.remove('visible');
+		slideout.offsetWidth;
+		slideout.classList.add('visible');
 		chainSwitchButton.style.display = "none";
 		return
 	}
@@ -585,14 +621,24 @@ try{
 
 	  }
 	  else{
-		inform.innerText = "Invalid Token Number";
+		
+		slideout.innerText = 'Invalid Token Value';
+		slideout.style.background = red;
+		slideout.classList.remove('visible');
+		slideout.offsetWidth;
+		slideout.classList.add('visible');
+	
 		chainSwitchButton.style.display = "none";
 
 		return
 	  }
 	}
 	else{
-		inform.innerText = "Disconnected";
+		slideout.innerText = 'Disconnected';
+		slideout.style.background = red;
+		slideout.classList.remove('visible');
+		slideout.offsetWidth;
+		slideout.classList.add('visible');
 		chainSwitchButton.style.display = "none";
 
 		return
@@ -623,14 +669,28 @@ try{
 	  let accountBal = await window.contract.methods.balanceOf(sender).call();
 	  verifyButton.firstElementChild.style.display = "none";
       if(BigInt(allowance)>BigInt(accountBal)){
-      	smartCheck.innerText = "Not So Smart, my friend";
+		slideout.innerText = "Not So Smart, my friend";
+		slideout.style.background = red;
+		slideout.classList.remove('visible');
+		slideout.offsetWidth;
+		slideout.classList.add('visible');
+      	// smartCheck.innerText = "Not So Smart, my friend";
       }
       else{
-      	smartCheck.innerText = "Very Smart";
+		slideout.innerText = "Very Smart";
+		slideout.style.background = "green";
+		slideout.classList.remove('visible');
+		slideout.offsetWidth;
+		slideout.classList.add('visible');
+      	// smartCheck.innerText = "Very Smart";
       }
 	}
 	  else{
-		inform.innerText = "Disconnected";
+		slideout.innerText = 'Disconnected';
+		slideout.style.background = red;
+		slideout.classList.remove('visible');
+		slideout.offsetWidth;
+		slideout.classList.add('visible');
 		chainSwitchButton.style.display = "none";
 
 		return
@@ -646,6 +706,7 @@ catch(error)
 }
 
 finally {
+	
 	verifyButton.firstElementChild.style.display = "none";
 
 }
@@ -679,7 +740,12 @@ async function login(){
 }
 
 async function logout(){
-	inform.innerText = "Disconnected";
+	slideout.innerText = 'Disconnected';
+	slideout.style.background = red;
+	slideout.classList.remove('visible');
+	slideout.offsetWidth;
+	slideout.classList.add('visible');
+
 	chainSwitchButton.style.display = "none";
 	connectButton.disabled = false;
 	connectButton.innerText = "Connect Wallet";
@@ -690,6 +756,7 @@ async function logout(){
 	stakeButton.disabled = true;
 	userAdd.style.display = "none"
 	userImage.style.display = "none"
+	username = null
 	loginButton.innerText = 'Login'
 	accounts = null
 	sessionStorage.setItem('session', 'loggedOut')
@@ -703,6 +770,11 @@ async function logout(){
   async function handleNewAccounts (newAccounts) {
     accounts = newAccounts;
         if (isMetaMaskConnected()) {
+
+		if(slideout.classList.contains('visible')){
+    
+			slideout.classList.remove('visible');
+		}
 		inform.innerText = "";
 		chainSwitchButton.style.display = "none";
         connectButton.innerText = "Connected";
@@ -722,10 +794,13 @@ async function logout(){
 			verifyButton.disabled = true;
 			inform.innerText = "The Contract is deployed on Goerli.";
 			chainSwitchButton.style.display = "inline-block";
+			slideout.innerText = wrongchainnotif;
+			slideout.style.background = red;
 			slideout.classList.remove('visible');
 			slideout.offsetWidth;
 			slideout.classList.add('visible');
 			userImage.style.display = "none"
+			username = null
 
 		}
 		else{
@@ -740,15 +815,15 @@ async function logout(){
 			userImage.setAttribute('src', source + username) 
 			userImage.style.display = "block"
 		}
-		userAdd.innerText = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
-		userAdd.style.display = "block"
+			userAdd.innerText = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
+			userAdd.style.display = "block"
 
-		loginButton.innerText = 'Logout'
-		sessionStorage.setItem('session', 'loggedIn')
-		loginButton.removeEventListener('click', login)
-		setTimeout(() => {
-			loginButton.addEventListener('click', logout)
-		  }, 200)
+			loginButton.innerText = 'Logout'
+			sessionStorage.setItem('session', 'loggedIn')
+			loginButton.removeEventListener('click', login)
+			setTimeout(() => {
+				loginButton.addEventListener('click', logout)
+			  }, 200)
     }
   
   }
@@ -757,7 +832,11 @@ try{
 	ethereum.on('accountsChanged', async (newAccount) => {
 
 		if(!newAccount.length){
-			inform.innerText = "Disconnected";
+			slideout.innerText = 'Disconnected';
+			slideout.style.background = red;
+			slideout.classList.remove('visible');
+			slideout.offsetWidth;
+			slideout.classList.add('visible');
 			chainSwitchButton.style.display = "none";
 			connectButton.disabled = false;
 			connectButton.innerText = "Connect Wallet";
@@ -768,6 +847,7 @@ try{
 			verifyButton.disabled = true;			
 			userAdd.style.display = "none";
 			userImage.style.display = "none";
+			username = null
 			loginButton.innerText = 'Login';
 			accounts = null
 			sessionStorage.setItem('session', 'loggedOut')
@@ -777,30 +857,40 @@ try{
 			  }, 200)
 		}
 		else{
-			inform.innerText = "";
-			chainSwitchButton.style.display = "none";
-			accounts = newAccount;
-			userAdd.innerText = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
-			let goerli = (ethereum.chainId == "0x5");
-			if(goerli)
-			{
-			fetchedUsername = await window.usernameContract.methods.usernames(String(accounts)).call();
-			if(fetchedUsername == ''){
-				username = "Anonymous"
+			if(isMetaMaskConnected()){
+				inform.innerText = "";
+				chainSwitchButton.style.display = "none";
+				accounts = newAccount;
+				userAdd.innerText = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
+				let goerli = (ethereum.chainId == "0x5");
+				if(goerli)
+					{
+					fetchedUsername = await window.usernameContract.methods.usernames(String(accounts)).call();
+					if(fetchedUsername == ''){
+						username = "Anonymous"
+					}
+					else{
+						username = fetchedUsername
+					}
+					userImage.setAttribute('src', source + username)
+					userImage.style.display = "block"
+				
+					}
+				else{
+					slideout.innerText = wrongchainnotif;
+					slideout.style.background = red;
+					slideout.classList.remove('visible');
+					slideout.offsetWidth;
+					slideout.classList.add('visible');
+					userImage.style.display = "none"
+					username = null
+				}	
 			}
 			else{
-				username = fetchedUsername
+				// Fresh Connection needs no action
+				return
 			}
-			userImage.setAttribute('src', source + username)
-			userImage.style.display = "block"
 	
-		}
-			else{
-				slideout.classList.remove('visible');
-				slideout.offsetWidth;
-				slideout.classList.add('visible');
-				userImage.style.display = "none"
-			}		
 		}
 });
 
@@ -821,10 +911,17 @@ try{
 					verifyButton.disabled = true;
 					inform.innerText = "The Contract is deployed on Goerli";
 					chainSwitchButton.style.display = "inline-block";
+					if(dropdown.classList.contains('showDrop')){
+        
+						dropdown.classList.remove('showDrop');
+					}
+					slideout.innerText = wrongchainnotif;
+					slideout.style.background = red;
 					slideout.classList.remove('visible');
 					slideout.offsetWidth;
 					slideout.classList.add('visible');
 					userImage.style.display = "none"
+					username = null
 				}
 				else{
 					inform.innerText = "";
@@ -850,8 +947,97 @@ catch(error){
 	console.log(error)
 }
 
+userImage.addEventListener('click', () => {
+    drop_name.innerText = username
+    dropdown.classList.toggle('showDrop');
+});
+
+window.onclick = function(event) {
+    // console.log(event.target)
+    if(
+        !event.target.matches('#user-image') &&
+        !event.target.matches('#username-change') &&
+        !event.target.matches('.dropdown') &&
+        !event.target.matches('#drop-name') &&
+        !event.target.matches('.dropRow') &&
+        !event.target.matches('#btn-username')){
+        if(dropdown.classList.contains('showDrop')){
+        
+            dropdown.classList.remove('showDrop');
+        }
+    }
+}
+
+usernameButton.addEventListener('click', async () => {
+    try{
+        let usernameToChange = usernameText.value;
+        if(usernameToChange.length > 15){
+            slideout.innerText = wrongusernamenotif;
+			slideout.style.background = red;
+            slideout.classList.remove('visible');
+            slideout.offsetWidth;
+            slideout.classList.add('visible');
+            return false;
+        }
+        else{
+            await window.usernameContract.methods.setUsername(usernameToChange).call();
+            usernameButton.nextElementSibling.style.display = "block";
+
+            await window.usernameContract.methods.setUsername(usernameToChange).send({from: accounts.toString()});
+
+            fetchedUsername = await window.usernameContract.methods.usernames(String(accounts)).call();
+            userImage.setAttribute('src', source + fetchedUsername) 
+            drop_name.innerText = fetchedUsername
+
+            usernameButton.nextElementSibling.style.display = "none";
+
+        }
+    }
+    catch(error){
+        if(error.message.includes("Invalid Username")){
+            slideout.innerText = "Invalid Username";
+			slideout.style.background = red;
+            slideout.classList.remove('visible');
+            slideout.offsetWidth;
+            slideout.classList.add('visible');
+        }
+        else if(error.message.includes("Username Already Taken")){
+            slideout.innerText = "Username Already Taken";
+			slideout.style.background = red;
+            slideout.classList.remove('visible');
+            slideout.offsetWidth;
+            slideout.classList.add('visible');
+        }
+        else{
+            console.log(error);
+        }
+    }
+
+    finally{
+        usernameButton.nextElementSibling.style.display = "none";
+
+    }
+});
+
+async function preload(){
+    
+    try{
+        usernameText.disabled = true;
+        usernameText.placeholder = "In Development";
+        usernameButton.disabled = true;
+        stat = await fetch(document.querySelector('#chip img').src);
+        if (stat.status == 404){
+            document.querySelector('#chip img').src = 'https://cdn-icons-png.flaticon.com/512/924/924915.png';
+        }
 
 
+    }
+    catch(error){
+        console.log(error);
+    }
+
+
+  }
 
 window.addEventListener('load', updateButtons);
 

@@ -47,6 +47,44 @@
       text-align: center;
       }
 
+      .dropdown{
+        animation: fadein 0.2s linear 1 forwards;
+        display: none;
+        position: fixed;
+        background-color: #212529;
+        min-width: 18vw;
+        min-height: 16vh;
+        box-shadow: 0px 8px 16px 0px #212529;
+        z-index: 1;
+        top: 7vh;
+        padding-left: 1.1vw;
+        color: white;
+        border-radius: 6px;
+
+      }
+
+      .showDrop{
+        display: block;
+      }
+
+      #username-change {
+      padding: 3px 15px;
+      box-sizing: border-box;
+      border: 2px solid;
+      border-color: #3e64ff;
+      border-radius: 4px;
+      background-color: #212529;
+      color: white;
+      height: 4.5vh;
+      }
+
+      #btn-username{
+        margin-top: 5px;
+        height: 4.5vh;
+        width: 10vw;
+        margin-bottom: 5px;
+        padding: 0px;
+      }
 
     </style>
   </head>
@@ -63,12 +101,25 @@
           <p id="user"></p>
         </li>
         <li class="login-list">
-          <img id="user-image" style="cursor: pointer;"/>
+          <img id="user-image" style="cursor: pointer;">
+              <div class= "dropdown">
+                <h5 id="drop-name" style="color: white"></h5>
+                <div class="row dropRow">
+                  <input type="text" id="username-change" placeholder="New Username">
+                  </div>
+                  <div class="row dropRow">
+                    <button class="btn btn-primary" id="btn-username" style="font-size: 15px;">
+                    Change Username
+                  </button>
+                  <span class="spinner-border spinner-border-sm" id="spinIt" role="status" aria-hidden="true" style="display: none;"></span>
+                </div>
+              </div>
+          </img>
         </li>
       </ul>
   </nav>
 
-  <div id="notif" >CipherShastra runs on Goerli. Kindly switch to it!</div>
+  <div id="notif" ></div>
   
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar" class="active">

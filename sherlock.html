@@ -48,7 +48,7 @@
       text-align: center;
       }
 
-      input[type=text] {
+      #flag {
       padding: 6px 15px;
       width: 40%;
       box-sizing: border-box;
@@ -69,11 +69,24 @@
         </li>
         <li class="login-list"><p id="user"></p></li>
         <li class="login-list">
-          <img id="user-image" style="cursor: pointer;"/>
+          <img id="user-image" style="cursor: pointer;">
+              <div class= "dropdown">
+                <h5 id="drop-name" style="color: white;"></h5>
+                <div class="row dropRow">
+                  <input type="text" id="username-change" placeholder="New Username">
+                  </div>
+                  <div class="row dropRow">
+                    <button class="btn btn-primary" id="btn-username" style="font-size: 15px;">
+                    Change Username
+                  </button>
+                  <span class="spinner-border spinner-border-sm" id="spinIt" role="status" aria-hidden="true" style="display: none;"></span>
+                </div>
+              </div>
+          </img>
         </li>
       </ul>
   </nav>
-  <div id="notif" >CipherShastra runs on Goerli. Kindly switch to it!</div>
+  <div id="notif" ></div>
 
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar" class="active">
@@ -132,10 +145,10 @@
             Verify Flag
           </button>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <p id="flagOut" style="margin-left: 15px;"></p>
-        </div>
-        <h3 id="contract-title">Contract Code</h3>
+        </div> -->
+        <h3 id="contract-title" style="margin-top: 3vh;">Contract Code</h3>
         <pre>
           <code class="language-solidity" style="font-size: 1rem;">  
     pragma solidity ^0.8.0;
@@ -209,10 +222,21 @@
         // leaderboard logic here
 
         document.getElementById('btn-verify').firstElementChild.style.display = "none";
-        document.getElementById("flagOut").innerHTML = "Congrats! You solved the challenge";
+
+        slideout.innerText = "Congrats! You solved the challenge";
+        slideout.style.background = "green";
+        slideout.classList.remove('visible');
+        slideout.offsetWidth;
+        slideout.classList.add('visible');
+        // document.getElementById("flagOut").innerHTML = "Congrats! You solved the challenge";
       }
       catch(error){
-          document.getElementById("flagOut").innerHTML = "Incorrect Flag"; 
+          // document.getElementById("flagOut").innerHTML = "Incorrect Flag";
+          slideout.innerText = "Incorrect Flag";
+          slideout.style.background = red;
+          slideout.classList.remove('visible');
+          slideout.offsetWidth;
+          slideout.classList.add('visible'); 
         }
       finally{
         document.getElementById('btn-verify').firstElementChild.style.display = "none";

@@ -1,6 +1,7 @@
 let storedColor = sessionStorage.getItem('toggledColor');
 let checked = sessionStorage.getItem('checkbox');
 let dflex = document.querySelector("#content .dynamicW");
+
 checkbox = document.getElementById('checkbox');
 
 let theme = sessionStorage.getItem('theme');
@@ -17,8 +18,10 @@ if (storedColor != null && storedColor === 'white' ){
         // document.getElementsById('chip').style.color = storedColor;
 
     }
-    catch(err){}
+    catch(err){ console.log(err)}
 
+    document.querySelector('.dropdown').style.boxShadow = "0px 4px 8px 0px #3e64ff";
+    
 }
 
 checkbox.addEventListener('change', ()=>{
@@ -39,8 +42,17 @@ try{
     // document.getElementsById('chip').style.color = black;
 
 }
-catch(err) {
+catch(error) {
+  console.log(error)
 
+}
+
+try{
+  if(toggledColor === 'white') dropdown.style.boxShadow = " 0px 4px 8px 0px #3e64ff";
+  else dropdown.style.boxShadow = " 0px 8px 16px 0px #212529";
+}
+catch(error){
+  console.log(error)
 }
 
 });

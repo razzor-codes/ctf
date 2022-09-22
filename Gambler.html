@@ -62,16 +62,32 @@
         <li><a href="leaderboard.html">Leaderboard</a></li>
         <li><a href="roadmap.html">Auditor's Roadmap</a></li>
         <li><a href="resources.html">Resources</a></li>
+        <!-- <li class="login-list">
+          <span class="spinner-border spinner-border-sm" id="spinIt" role="status" aria-hidden="true" style="display: block;"></span>
+        </li> -->
         <li class="login-list">          
           <button class="btn btn-primary" id="btn-login">Login</button>
         </li>
         <li class="login-list"><p id="user"></p></li>
         <li class="login-list">
-          <img id="user-image" style="cursor: pointer;"/>
+          <img id="user-image" style="cursor: pointer;">
+              <div class= "dropdown">
+                <h5 id="drop-name" style="color: white;"></h5>
+                <div class="row dropRow">
+                  <input type="text" id="username-change" placeholder="New Username">
+                  </div>
+                  <div class="row dropRow">
+                    <button class="btn btn-primary" id="btn-username" style="font-size: 15px;">
+                    Change Username
+                  </button>
+                  <span class="spinner-border spinner-border-sm" id="spinIt" role="status" aria-hidden="true" style="display: none;"></span>
+                </div>
+              </div>
+          </img>
         </li>
       </ul>
   </nav>
-  <div id="notif" >CipherShastra runs on Goerli. Kindly switch to it!</div>
+  <div id="notif" ></div>
 
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar" class="active">

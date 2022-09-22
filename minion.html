@@ -63,11 +63,24 @@
         </li>
         <li class="login-list"><p id="user"></p></li>
         <li class="login-list">
-          <img id="user-image" style="cursor: pointer;"/>
+          <img id="user-image" style="cursor: pointer;">
+              <div class= "dropdown">
+                <h5 id="drop-name" style="color: white;"></h5>
+                <div class="row dropRow">
+                  <input type="text" id="username-change" placeholder="New Username">
+                  </div>
+                  <div class="row dropRow">
+                    <button class="btn btn-primary" id="btn-username" style="font-size: 15px;">
+                    Change Username
+                  </button>
+                  <span class="spinner-border spinner-border-sm" id="spinIt" role="status" aria-hidden="true" style="display: none;"></span>
+                </div>
+              </div>
+          </img>
         </li>
       </ul>
   </nav>	
-  <div id="notif" >CipherShastra runs on Goerli. Kindly switch to it!</div>
+  <div id="notif" ></div>
 
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar" class="active">
@@ -180,6 +193,7 @@ contract Minion{
             <img src="https://media-exp1.licdn.com/dms/image/C5603AQGx-sZP_ZYCmw/profile-displayphoto-shrink_200_200/0/1603371370005?e=2147483647&v=beta&t=LJQKF3xB7Gt9MN7kvIMeWH1J-kcktOoztSRtDdpx8JE" alt="Prajwal More" width="96" height="96">
           Prajwal More
           </a>
+          <!-- https://cdn-icons-png.flaticon.com/512/924/924915.png -->
         </div>        
         <script src="js/toggle.js"></script>
         <footer>

@@ -8233,12 +8233,25 @@ h1, h2, h3, h4, h5,
 
 #navbar_horizon li.login-list button{
   font-size: 18px;
+
 }
 
 #navbar_horizon li.login-list p#user, #navbar_horizon li.login-list img#user-image{
   font-size: 18px;
   margin-top: 4px;
   margin-bottom: 0px;
+  transition: all .2s ease-in-out;
+}
+
+#navbar_horizon li.login-list img#user-image:hover {
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.5); 
+}
+
+#navbar_horizon li.login-list img#user-image{
+  width: 33px;
+  height: 33px;
 }
 
 
@@ -8270,6 +8283,9 @@ code::-webkit-scrollbar{
   background-color: #404040;
 }
 
+#sidebar ul.components li.active, #navbar_horizon ul.components li.active{
+  background: #212529;
+}
 
 #sidebar {
   min-width: 270px;
