@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" type="image/png" href="css/CipherLogo.png">
-    <meta name="description" content="Does SUCCESS really matter? Anyways, anyone having more than 2 Mayas is a HUNTER! @goerli: 0xA65d0E85BB136F460d864a8D37EacC1011314623">
+    <meta name="description" content="ROaR! Coming Soon...">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/atom-one-dark-reasonable.min.css">
@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/toggle.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome-animation@1.1.1/css/font-awesome-animation.min.css">
-
     <script src="https://kit.fontawesome.com/9ebdf8e948.js" crossorigin="anonymous"></script>
   
     <script>
@@ -48,6 +47,44 @@
       text-align: center;
       }
 
+      .dropdown{
+        animation: fadein 0.2s linear 1 forwards;
+        display: none;
+        position: fixed;
+        background-color: #212529;
+        min-width: 18vw;
+        min-height: 16vh;
+        box-shadow: 0px 8px 16px 0px #212529;
+        z-index: 1;
+        top: 7vh;
+        padding-left: 1.1vw;
+        color: white;
+        border-radius: 6px;
+
+      }
+
+      .showDrop{
+        display: block;
+      }
+
+      #username-change {
+      padding: 3px 15px;
+      box-sizing: border-box;
+      border: 2px solid;
+      border-color: #3e64ff;
+      border-radius: 4px;
+      background-color: #212529;
+      color: white;
+      height: 4.5vh;
+      }
+
+      #btn-username{
+        margin-top: 5px;
+        height: 4.5vh;
+        width: 10vw;
+        margin-bottom: 5px;
+        padding: 0px;
+      }
 
     </style>
   </head>
@@ -60,11 +97,13 @@
         <li class="login-list">          
           <button class="btn btn-primary" id="btn-login">Login</button>
         </li>
-        <li class="login-list"><p id="user"></p></li>
+        <li class="login-list">
+          <p id="user"></p>
+        </li>
         <li class="login-list">
           <img id="user-image" style="cursor: pointer;">
               <div class= "dropdown">
-                <h5 id="drop-name" style="color: white;"></h5>
+                <h5 id="drop-name" style="color: white"></h5>
                 <div class="row dropRow">
                   <input type="text" id="username-change" placeholder="New Username">
                   </div>
@@ -79,22 +118,23 @@
         </li>
       </ul>
   </nav>
-  <div id="notif" ></div>
 
+  <div id="notif" ></div>
+  
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar" class="active">
         <ul class="list-unstyled components mb-5">
-          <li><a href="index.html"><span class="fa fa-home"></span> Home</a></li>
-          <li><a href="sherlock.html"><span class="fas fa-fingerprint"></span> Sherlock</a></li>
-          <li><a href="minion.html"><span class="fab fa-optin-monster"></span>Minion</a></li>
-          <li><a href="limitless.html"><span class="fab fa-bitcoin"></span>Limitless</a></li>
-		      <li><a href="shilpkaar.html"><span class="fab fa-keycdn"></span>Shilpkaar</a></li>
+            <li><a href="index.html"><span class="fa fa-home"></span> Home</a></li>
+            <li><a href="sherlock.html"><span class="fas fa-fingerprint"></span> Sherlock</a></li>
+            <li><a href="minion.html"><span class="fab fa-optin-monster"></span>Minion</a></li>
+            <li><a href="limitless.html"><span class="fab fa-bitcoin"></span>Limitless</a></li>
+		    <li><a href="shilpkaar.html"><span class="fab fa-keycdn"></span>Shilpkaar</a></li>
 	        <li><a href="UnDeAD.html"><span class="fas fa-biohazard"></span>UnDeAD</a></li>
 	        <li><a href="ThirtyFive.html"><span class="fas fa-phone"></span>ThirtyFive</a></li>
-          <li class="active"><a href="#"><span class="fas fa-gas-pump"></span>Maya</a></li>
-          <li><a href="Gambler.html"><span class="fas fa-dice"></span>Gambler</a></li>
-          <li><a href="kautilya.html"><span class="fas fa-chess-king"></span>Kautilya</a></li>
-          <li><a href="ROaR.html"><span class="fas fa-random"></span>ROaR</a></li>
+            <li><a href="Maya.html"><span class="fas fa-gas-pump"></span>Maya</a></li>
+            <li><a href="Gambler.html"><span class="fas fa-dice"></span>Gambler</a></li>
+            <li><a href="kautilya.html"><span class="fas fa-chess-king"></span>Kautilya</a></li>
+            <li class="active"><a href="#"><span class="fas fa-random"></span>ROaR</a></li>
 
         </ul>
     	</nav>
@@ -103,14 +143,14 @@
       <div id="content" class="p-4 p-md-5" style="overflow: auto;">
         <div class="d-flex dynamicW">
           <div>
-            <h2 class="mb-4" id="title"><span class="fas fa-gas-pump"></span>Maya</h2>
+            <h2 class="mb-4" id="title"><span class="fas fa-random"></span>ROaR</h2>
           </div>
           <div class="ml-auto">
             <h2 id="diff-title">Difficulty
               <span class="fas fa-star stars"></span>
               <span class="fas fa-star stars"></span>
               <span class="fas fa-star stars"></span>
-              <span class="fas fa-star-half-alt stars"></span>
+              <span class="far fa-star stars"></span>
               <span class="far fa-star stars"></span>
             </h2>
           </div>
@@ -126,114 +166,22 @@
 
       </div>
         <p>
-          Does SUCCESS really matter? Anyways, anyone having more than 2 Mayas is a HUNTER!<br>
-          <b>Author:</b> <a href="https://twitter.com/razzor_tweet">Razzor</a><br>
+          Coming Soon...<br>
+          <div class="row">
+            <img src="https://images.unsplash.com/photo-1543996991-8e851c2dc841?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" width="400px" height="380px"/>
+            <p style="margin-top: 5%; padding: 2%;"><i>Sometimes you are supposed to find indirect paths to succeed.</i></p>
+          </div>
+          <!-- <b>Author:</b> <a href="https://twitter.com/razzor_tweet">Razzor</a><br>
           <b>Network:</b> Goerli<br>
-          <b>Address:</b> <a href="https://goerli.etherscan.io/address/0xa65d0e85bb136f460d864a8d37eacc1011314623">0xA65d0E85BB136F460d864a8D37EacC1011314623</a><br>
-          Note: The intended behaviour can be observed by forking Goerli in hardhat<br/>
+          <b>Address:</b> <a href="https://goerli.etherscan.io/address/0xa65d0e85bb136f460d864a8d37eacc1011314623">0xA65d0E85BB136F460d864a8D37EacC1011314623</a><br> -->
         </p>
 
-        <h3 id="contract-title">Contract Pseudo Code</h3>
-        <pre>
+        <h3 id="contract-title"></h3>
+        <!-- <pre>
             <code class="language-solidity" style="font-size: 1rem;">     
-pragma solidity ^0.8.0;
-
-import "./Address.sol";
-import "./IERC20.sol";
-import "./IERC20Permit.sol";
-import "./SafeERC20.sol";
-import "./ERC721.sol";
-import "./Counters.sol";
-contract Maya is ERC721("MAYA", "MAYA"){
-    using SafeERC20 for IERC20;
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIdCounter;
-
-    IERC20 public token;
-    uint public price;
-    address public owner;
-
-    mapping(address => uint[]) public allIds;
-
-    constructor(address _token, uint _price){
-        token = IERC20(_token);
-        price = _price;
-        owner = msg.sender;
-    }
-
-    modifier onlyOwner(){
-        require(msg.sender == owner, "Not the Owner");
-        _;
-    }
-
-    function buy() external{
-        require(token.balanceOf(msg.sender)>=price, "Insufficient balance");
-        require(token.allowance(msg.sender, address(this)) >= price, "Insufficient Allowance");
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
-        _mint(msg.sender, tokenId);
-        allIds[msg.sender].push(tokenId);
-        token.safeTransferFrom(msg.sender, address(this), price);
-    }
-
-    function burnMaya() external {
-        require(balanceOf(msg.sender)>0,"No Ids to burn");
-        uint length = allIds[msg.sender].length;
-        for(uint i=0;i < length;++i){
-            uint tokenId = allIds[msg.sender][i];
-            _burn(tokenId);
-        }
-
-        delete allIds[msg.sender];
-        
-    }
-
-    function setPrice(uint _price) external onlyOwner{
-        price = _price;
-    }
-
-    function hunter() external view returns(string memory){
-        uint balance = balanceOf(msg.sender);
-        if (balance > 2){
-            return "Seems like you have figured it out? Hunter!";
-        }
-        else if(balance > 0){
-            return "Oh wow! You got Maya!";
-        }
-        else {
-            return "Buy one at least?";
-        }
-    }
-
-    function transferFrom(
-        address from,
-        address to,
-        uint256 tokenId
-    ) public override {
-        revert("Don't cheat the system!");
-    }
-
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 tokenId,
-        bytes memory data
-    ) public override {
-        revert("Don't cheat the system!");
-
-    }
-
-    function tokenURI(uint256) public pure override returns (string memory) {
-        return "https://ciphershastra.com/Maya.html";
-    }
-
-    function transferOwnership(address newOwner) external onlyOwner{
-        owner = newOwner;
-    }    
-}
  
             </code>
-        </pre>
+        </pre> -->
         <!--
         <h3>Writeups</h3>
         <p><a href="">Official Writeup</a><br></p>
