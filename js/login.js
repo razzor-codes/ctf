@@ -71,6 +71,7 @@ async function login(){
         }
         userImage.setAttribute('src', source + username) 
         userImage.style.display = "block"
+        otherpages_login();
     } else{
     slideout.innerText = wrongchainnotif;
     slideout.style.background = red;
@@ -106,12 +107,35 @@ async function logout(){
     userImage.style.display = "none"
     username = null
     accounts = null
+    otherpages_logOut();
     sessionStorage.setItem('session', 'loggedOut')
     loginButton.removeEventListener('click', logout)
     setTimeout(() => {
         loginButton.addEventListener('click', login)
       }, 200)
 }
+
+// ----------------------- for other pages----------------------------
+async function otherpages_logOut(){
+    // if(document.getElementById('title').innerText === 'KingSlayer')
+    // address.innerHTML = "";
+}
+
+async function otherpages_login(){
+    
+    // instance = await window.deployer.methods.imps(accounts.toString()).call();
+    // if(instance === '0x0000000000000000000000000000000000000000'){
+    //     address.innerHTML = "<b>Your Instance: No instance found</b>";
+    // }
+    // else{
+    //     address.innerHTML = 
+    //     "<b>Your Instance: </b>" +
+    //     "<a href='https://goerli.etherscan.io/address/" +
+    //     instance.toString() + 
+    //     "'>" + instance.toString() + "</a>";
+    // }
+}
+// -------------------------------------------------------------------
 
 try{
     ethereum.on('accountsChanged', async (newAccount) => {
@@ -143,7 +167,7 @@ try{
         userImage.setAttribute('src', source + username)
         userImage.style.display = "block"
     
-    }
+        }
         else{
             slideout.innerText = wrongchainnotif;
             slideout.style.background = red;
