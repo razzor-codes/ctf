@@ -101,6 +101,8 @@
           <li><a href="Maya.html"><span class="fas fa-gas-pump"></span>Maya</a></li>
           <li><a href="Gambler.html"><span class="fas fa-dice"></span>Gambler</a></li>
           <li><a href="KingSlayer.html"><span class="fas fa-crown"></span>KingSlayer</a></li>
+          <li><a href="free4all.html"><span class="fas fa-handshake"></span>Free4All</a></li>
+
           <li><a href="kautilya.html"><span class="fas fa-chess-king"></span>Kautilya</a></li>
           <li><a href="ROaR.html"><span class="fas fa-random"></span>ROaR</a></li>
 
@@ -219,6 +221,9 @@
         const { proof, publicSignals } =
         await snarkjs.plonk.fullProve( { a: BigInt("0x"+ hashHex, 16)}, "circuit/circuit.wasm", "circuit/circuit_final.zkey");
         calldata = await snarkjs.plonk.exportSolidityCallData(proof, publicSignals);
+        console.log(proof)
+        console.log(publicSignals)
+        console.log(calldata)
         params = calldata.split(',');
         // leaderboard logic here
 
