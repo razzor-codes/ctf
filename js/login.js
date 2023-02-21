@@ -73,11 +73,17 @@ async function login(){
         userImage.style.display = "block"
         otherpages_login();
     } else{
-    slideout.innerText = wrongchainnotif;
-    slideout.style.background = red;
-    slideout.classList.remove('visible');
-    slideout.offsetWidth;
-    slideout.classList.add('visible');
+            if(document.querySelector("#title").textContent !== 'Free4All'){
+                
+            
+            
+                slideout.innerText = wrongchainnotif;
+                slideout.style.background = red;
+                slideout.classList.remove('visible');
+                slideout.offsetWidth;
+                slideout.classList.add('visible');
+            
+            }
     userImage.style.display = "none"
     username = null
 
@@ -169,11 +175,17 @@ try{
     
         }
         else{
-            slideout.innerText = wrongchainnotif;
-            slideout.style.background = red;
-            slideout.classList.remove('visible');
-            slideout.offsetWidth;
-            slideout.classList.add('visible');
+            if(document.querySelector("#title").textContent !== 'Free4All'){
+                
+            
+            
+                slideout.innerText = wrongchainnotif;
+                slideout.style.background = red;
+                slideout.classList.remove('visible');
+                slideout.offsetWidth;
+                slideout.classList.add('visible');
+            
+            }
             userImage.style.display = "none"
             username = null
         }
@@ -207,11 +219,17 @@ try{
         
                 dropdown.classList.remove('showDrop');
             }
-            slideout.innerText = wrongchainnotif;
-            slideout.style.background = red;
-            slideout.classList.remove('visible');
-            slideout.offsetWidth;
-            slideout.classList.add('visible');
+            if(document.querySelector("#title").textContent !== 'Free4All'){
+                
+            
+            
+                slideout.innerText = wrongchainnotif;
+                slideout.style.background = red;
+                slideout.classList.remove('visible');
+                slideout.offsetWidth;
+                slideout.classList.add('visible');
+            
+            }
             userImage.style.display = "none"
             username = null
         }
