@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" type="image/png" href="css/CipherLogo.png">
-    <meta name="description" content="Your typical King of the Ether! It's a Game of Throne! @Goerli: 0x35b6815696d82ef17c8003d77ae033c35d873346">
+    <meta name="description" content="The Factory can make all colors of your choice. Well, Almost. The Factory needs to make a special color, but seems like it is not possible with the colors available. Can you help? @Goerli: 0x26edC5982ea919d2358ECCbfC640eaD45Dc0c2b0">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/atom-one-dark-reasonable.min.css">
@@ -142,9 +142,9 @@
 	        <li><a href="ThirtyFive.html"><span class="fas fa-phone"></span>ThirtyFive</a></li>
             <li><a href="Maya.html"><span class="fas fa-gas-pump"></span>Maya</a></li>
             <li><a href="Gambler.html"><span class="fas fa-dice"></span>Gambler</a></li>
-            <li class="active"><a href="#"><span class="fas fa-crown"></span>KingSlayer</a></li>
+            <li><a href="KingSlayer.html"><span class="fas fa-crown"></span>KingSlayer</a></li>
             <li><a href="free4all.html"><span class="fas fa-handshake"></span>Free4All</a></li>
-            <li><a href="ColorFactory.html"><span class="fas fa-place-of-worship"></span>Color&NewLine;Factory</a></li>
+            <li class="active"><a href="#"><span class="fas fa-place-of-worship"></span>Color&NewLine;Factory</a></li>
 
             <li><a href="kautilya.html"><span class="fas fa-chess-king"></span>Kautilya</a></li>
             <li><a href="ROaR.html"><span class="fas fa-random"></span>ROaR</a></li>
@@ -156,14 +156,14 @@
       <div id="content" class="p-4 p-md-5" style="overflow: auto;">
         <div class="d-flex dynamicW">
           <div>
-            <h2 class="mb-4" id="title"><span class="fas fa-crown"></span>KingSlayer</h2>
+            <h2 class="mb-4" id="title"><span class="fas fa-place-of-worship"></span>ColorFactory</h2>
           </div>
           <div class="ml-auto">
             <h2 id="diff-title">Difficulty
               <span class="fas fa-star stars"></span>
               <span class="fas fa-star stars"></span>
-              <span class="fas fa-star-half-alt stars"></span>
-              <span class="far fa-star stars"></span>
+              <span class="fas fa-star stars"></span>
+              <span class="fas fa-star stars"></span>
               <span class="far fa-star stars"></span>
             </h2>
           </div>
@@ -179,10 +179,10 @@
 
       </div>
         <p>
-          Your typical King of the Ether! It's a Game of Throne!<br>
+            The Factory can make all colors of your choice. Well, Almost. <br>The Factory needs to make a special color, but seems like it is not possible with the colors available. Can you help?<br>
           <b>Author:</b> <a href="https://twitter.com/razzor_tweet">Razzor</a><br>
           <b>Network:</b> Goerli<br>
-          <b>Deployer:</b> <a href="https://goerli.etherscan.io/address/0x35b6815696d82ef17c8003d77ae033c35d873346#code">0x35b6815696d82ef17c8003d77ae033c35d873346</a><br>
+          <b>Deployer:</b> <a href="https://goerli.etherscan.io/address/0x26edC5982ea919d2358ECCbfC640eaD45Dc0c2b0#code">0x26edC5982ea919d2358ECCbfC640eaD45Dc0c2b0</a><br>
           <div class="row">
             <button class="btn btn-primary" id="btn-instance" style="margin-left: 10px; width:  18%;">
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
@@ -197,83 +197,115 @@
         <h3 id="contract-title">Contract Code</h3>
         <pre>
             <code class="language-solidity" style="font-size: 1rem;">     
-pragma solidity 0.8.12;
+pragma solidity 0.8.18;
+contract ColorFactory{
+    mapping(string => uint256) public functions;
+    bytes3 public colorRequired;
+    bool public initialized;
+    bool public pwned;
+    address public deployer;
 
-import "./ERC721.sol";
-import "./Counters.sol";
-
-contract KingSlayer is ERC721("KingSlayer", "KS"){
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIdCounter;
-
-    address public King;
-    uint public KingsContribution;
-    address deployer;
-    bool initialized;
-    event newKing(address indexed);
-
-    function initialize() external{
+    function initialize(bytes3 _colorRequired) external{
         require(!initialized, "Already Initialized");
+        uint ptrRed; uint ptrGreen; uint ptrBlue; uint ptrBlack;
+        function() internal pure returns(bytes3) funcRed = addRed;
+        function() internal pure returns(bytes3) funcGreen =  addGreen;
+        function() internal pure returns(bytes3) funcBlue = addBlue;
+        function() internal pure returns(bytes3) funcBlack = addBlack;
+        assembly{
+            ptrRed:= funcRed
+            ptrGreen:= funcGreen
+            ptrBlue:= funcBlue
+            ptrBlack:= funcBlack
+        }
+        functions["Red"] = ptrRed;
+        functions["Green"] = ptrGreen;
+        functions["Blue"] = ptrBlue;
+        functions["Black"] = ptrBlack;
+        colorRequired = _colorRequired;
         initialized = true;
-        King = msg.sender;
-        KingsContribution = 0.01 ether;
         deployer = msg.sender;
-
     }
 
-    function gameOfThrone() external payable {
-        require(msg.sender != King, "Already a King. What else do you want?");
-        require(msg.value >= KingsContribution + 0.05 ether);
+// -----------------Let's Mix Some Colors----------------------------
 
-        payable(King).call{value: KingsContribution}("");
+    function addRed() internal pure returns(bytes3){
+        return 0xff0000;
+    }
+    function addGreen() internal pure returns(bytes3){
+        return 0x00b500;
+    }
+    function addBlue() internal pure returns(bytes3){
+        return 0x0047ab;
+    }
+    function addBlack() internal pure returns(bytes3){
+        return 0x000000;
+    }
+
+
+    function mixer(uint[] calldata pointers, uint[] calldata parts) external payable{
+        require(!pwned, "Already Pwned!");
+        require(pointers.length == parts.length, "Arrays not equal");
+        bytes3[] memory colors = new bytes3[](numberOfColors(parts)); 
+        uint count;
+        for (uint i;i&lt;pointers.length;++i){
+            bytes3 color = toFunc(pointers[i])();
+            for (uint j; j&lt;parts[i];++j){
+                colors[count] = color;
+                ++count;
+            }
+        }
+        bytes3 mixedColor = mix(colors);
+        if (mixedColor == colorRequired) {
+            pwned = true;
+        }
         
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
-        _mint(msg.sender, tokenId);
-
-        if (Address.isContract(King)) 
-            address(King).call(abi.encodeWithSelector(IERC721Receiver.onERC721Received.selector, _msgSender(), King, tokenId, ""));
-
-        King = msg.sender;
-        KingsContribution = msg.value;
-        emit newKing(msg.sender);
-
     }
 
-
-    function destroy() external{
-        require(msg.sender == deployer, "Only Deployer");
-        selfdestruct(payable(msg.sender));
+    function toFunc(uint pointer) internal pure returns(function() internal pure returns(bytes3) func){
+        assembly{
+            func:= pointer
+        }
     }
 
+    function numberOfColors(uint[] memory parts) internal pure returns(uint count){
+        for (uint i;i&lt;parts.length;++i){
+            count += parts[i];
+        }
+    }
+    
+
+    function mix(bytes3[] memory colors) internal pure returns(bytes3){
+        uint colorsCount = colors.length;
+        
+        require(colorsCount >= 2, "Not enough colors to mix");
+        bytes memory res;
+        for (uint j;j&lt;3;++j){
+            uint temp;
+            for(uint i;i&lt;colorsCount;++i){
+                temp += uint8(colors[i][j]);
+             }
+             uint8 value;
+             if(temp>0){
+                if(temp%colorsCount &lt; ((colorsCount-1)/2)+1){
+                    value = uint8(temp/colorsCount);
+                } else{
+                    value = uint8(((temp-1)/colorsCount)+1);
+                }
+                
+             }
+             
+             res = abi.encodePacked(res,bytes1(value));
+        }
+
+        return bytes3(res);
+    }
+    
     fallback() external payable{
-
+        
     }
-
-    function transferFrom(
-        address from,
-        address to,
-        uint256 tokenId
-    ) public override {
-        revert("Don't cheat the system!");
-    }
-
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 tokenId,
-        bytes memory data
-    ) public override {
-        revert("Don't cheat the system!");
-
-    }
-
-    function tokenURI(uint256) public pure override returns (string memory) {
-        return "https://ciphershastra.com/KingSlayer.html";
-    }
-
 }
-            </code>
+</code>
         </pre>
         <!--
         <h3>Writeups</h3>
@@ -291,71 +323,23 @@ contract KingSlayer is ERC721("KingSlayer", "KS"){
 
     <script>
         // JS Logic
-        let deployerContract = "0x35b6815696d82ef17c8003d77ae033c35d873346";
+        let deployerContract = "0x26edC5982ea919d2358ECCbfC640eaD45Dc0c2b0";
         const instanceButton = document.getElementById('btn-instance');
         const instanceAdd = document.getElementById('instanceAdd');
         const result = document.getElementById('result');
         async function loadDeployer(){
         return await new window.web3.eth.Contract([
-    {
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "Kingslayer",
-				"type": "address"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "Restored",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "Provided",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "Remaining",
-				"type": "uint256"
-			}
-		],
-		"name": "InsufficientBalance",
-		"type": "error"
-	},
-	{
-		"stateMutability": "payable",
-		"type": "fallback"
-	},
+        
 	{
 		"inputs": [],
 		"name": "deploy",
 		"outputs": [
 			{
 				"internalType": "address",
-				"name": "",
+				"name": "instance",
 				"type": "address"
 			}
 		],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address payable",
-				"name": "to",
-				"type": "address"
-			}
-		],
-		"name": "extractFunds",
-		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -363,113 +347,23 @@ contract KingSlayer is ERC721("KingSlayer", "KS"){
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "imps",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "a",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "b",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "c",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bytes",
-				"name": "d",
-				"type": "bytes"
-			}
-		],
-		"name": "onERC721Received",
-		"outputs": [
-			{
-				"internalType": "bytes4",
-				"name": "",
-				"type": "bytes4"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "currentInstance",
+				"name": "instance",
 				"type": "address"
 			}
 		],
 		"name": "verify",
-		"outputs": [],
-		"stateMutability": "payable",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
+    
     ], deployerContract);
-}
-
-async function loadInstance(instanceAdd){
-        return await new window.web3.eth.Contract([
-        {
-		"inputs": [],
-		"name": "King",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "KingsContribution",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-    ], instanceAdd);
 }
 
 window.addEventListener('load', () => {
@@ -478,53 +372,23 @@ window.addEventListener('load', () => {
 
 async function loadData(){
     window.deployer = await loadDeployer();
-    // let user = await ethereum.request({ method: 'eth_requestAccounts' });
-    // if(user != null && session==='loggedIn'){
-    //     instance = await window.deployer.methods.imps(accounts.toString()).call();
-    //     if(instance === '0x0000000000000000000000000000000000000000'){
-    //         address.innerHTML = "<b>Your Instance:</b> No instance found";
-    //     }
-    //     else{
-    //         address.innerHTML = 
-    //         "<b>Your Instance: </b>" +
-    //         "<a href='https://goerli.etherscan.io/address/" +
-    //         instance.toString() + 
-    //         "'>" + instance.toString() + "</a>";
-    //     }
-    // }
+  
 
 }
-// ethereum.on('accountsChanged', async (newAccount) => {
-//     if(!newAccount.length){
-//         address.innerHTML = "";
-//     }
-//     else{
-//         let goerli = (ethereum.chainId == "0x5");
-//         if(goerli) {
-//             instance = await window.deployer.methods.imps(accounts.toString()).call();
-//             if(instance === '0x0000000000000000000000000000000000000000'){
-//                 address.innerHTML = "<b>Your Instance:</b> No instance found";
-//             }
-//             else{
-//                 address.innerHTML = 
-//                 "<b>Your Instance: </b>" +
-//                 "<a href='https://goerli.etherscan.io/address/" +
-//                 instance.toString() + 
-//                 "'>" + instance.toString() + "</a>";
-//             }
-//         }
-//         else{
-//             address.innerHTML = "";
 
-//         }
-//     }
-// });
 
 
 
 
 instanceButton.addEventListener('click', async () => {
-
+    if ((ethereum.chainId !== "0x5")) {
+        slideout.innerText = wrongchainnotif;
+		slideout.style.background = red;
+        slideout.classList.remove('visible');
+        slideout.offsetWidth;
+        slideout.classList.add('visible');
+        return;
+    }
     if(accounts == null){
         slideout.innerText = "Disconnected";
 		slideout.style.background = red;
@@ -543,76 +407,35 @@ instanceButton.addEventListener('click', async () => {
             return;
         }
         try{
-            window.instance = await loadInstance(address);
-            
-            King = await window.instance.methods.King().call();
-            KingsContribution = await window.instance.methods.KingsContribution().call()
+            isSolved = await window.deployer.methods.verify(address).call();
         }
         catch(error){
-            slideout.innerText = "Invalid Instance Provided";
-		    slideout.style.background = red;
+            console.log(error);
+		    slideout.innerText = "Invalid Instance Provided";
+            slideout.style.background = red;
             slideout.classList.remove('visible');
             slideout.offsetWidth;
             slideout.classList.add('visible');
             return;
         }
+        instanceButton.firstElementChild.style.display = "inline-block";
 
-
-        try{
-            instanceButton.firstElementChild.style.display = "inline-block";
-            toDethrone = BigInt(KingsContribution)+BigInt("50000000000000000")
-            
-            await window.deployer.methods.verify(address).call({value: toDethrone.toString(), gasLimit: "30000000"});
-
-            slideout.innerText = "Unsolved! King can still be dethroned.";
-		    slideout.style.background = red;
-            slideout.classList.remove('visible');
-            slideout.offsetWidth;
-            slideout.classList.add('visible');
-            // instance = await window.deployer.methods.imps(accounts.toString()).call();
-
-            // address.innerHTML = 
-            // "<b>Your Instance: </b>" +
-            // "<a href='https://goerli.etherscan.io/address/" +
-            // instance.toString() + 
-            // "'>" + instance.toString() + "</a>";
-
-            instanceButton.firstElementChild.style.display = "none";
-
-        }
-        catch(error){
-
-        if(error.message.includes("Challenge Unsolved")){
-            slideout.innerText = "Challenge Unsolved";
-			slideout.style.background = red;
-            slideout.classList.remove('visible');
-            slideout.offsetWidth;
-            slideout.classList.add('visible');
-        } else if(error.message.includes("No instance found")){
-            slideout.innerText = "No instance found";
-			slideout.style.background = red;
-            slideout.classList.remove('visible');
-            slideout.offsetWidth;
-            slideout.classList.add('visible');
-        } else{
-            slideout.innerText = "Solved. Thrown is all yours! Forever!";
+        if(isSolved){
+            slideout.innerText = "Solved! You have found the right colors";
 		    slideout.style.background = "green";
             slideout.classList.remove('visible');
             slideout.offsetWidth;
             slideout.classList.add('visible');
-            console.error(error)
+        }else{
+            slideout.innerText = "Challenge Unsolved! Mix the right colors";
+		    slideout.style.background = red;
+            slideout.classList.remove('visible');
+            slideout.offsetWidth;
+            slideout.classList.add('visible');
         }
-
-
-        }
-
-        finally{
-            instanceButton.firstElementChild.style.display = "none";
-
-        }
+        instanceButton.firstElementChild.style.display = "none";
     }
     
-
 
 
 });
