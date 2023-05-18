@@ -8353,7 +8353,7 @@ code::-webkit-scrollbar{
           #sidebar ul li a span {
             display: block; } }
       #sidebar ul li a:hover {
-        color: #fff; }
+        color: #000; }
     #sidebar ul li.active > a {
       background: transparent;
       color: #fff; }
