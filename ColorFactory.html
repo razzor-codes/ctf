@@ -266,10 +266,19 @@ contract ColorFactory{
         }
     }
 
-    function numberOfColors(uint[] memory parts) internal pure returns(uint count){
-        for (uint i;i&lt;parts.length;++i){
-            count += parts[i];
-        }
+    function numberOfColors(uint[] calldata pointers, uint[] calldata parts) internal pure returns(uint count){
+      uint RedCount; uint GreenCount; uint BlueCount; uint BlackCount; 
+      for(uint i;i&lt;pointers.length;++i){
+          bytes3 color = toFunc(pointers[i])();
+          if(color == 0xff0000) RedCount+= parts[i];
+          else if(color == 0x00b500) GreenCount+= parts[i];
+          else if(color == 0x0047ab) BlueCount+= parts[i];
+          else BlackCount+= parts[i];
+      }
+      require(RedCount &lt;= 30 && GreenCount &lt;=30 && BlueCount &lt;=30 && BlackCount &lt;=30, "Too many colors to mix");
+
+      count = RedCount + GreenCount + BlueCount + BlackCount;
+
     }
     
 
