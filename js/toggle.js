@@ -21,8 +21,20 @@ if (storedColor != null && storedColor === 'white' ){
     catch(err){ console.log(err)}
 
     document.querySelector('.dropdown').style.boxShadow = "0px 4px 8px 0px #3e64ff";
+
+    // only for FUD
+  replain = document.getElementById('re-plain'); //Only For FUD
+  neonsign = document.getElementsByClassName('sign');
+  replain.style.display = "none";
+  neonsign[0].style.display=""; 
+  neonsign[1].style.display=""; 
     
 }
+
+
+
+
+
 
 checkbox.addEventListener('change', ()=>{
 var color = document.getElementById('title').style.color;
@@ -50,6 +62,25 @@ catch(error) {
 try{
   if(toggledColor === 'white') dropdown.style.boxShadow = " 0px 4px 8px 0px #3e64ff";
   else dropdown.style.boxShadow = " 0px 8px 16px 0px #212529";
+}
+catch(error){
+  console.log(error)
+}
+
+try{
+  replain = document.getElementById('re-plain'); //Only For FUD
+  neonsign = document.getElementsByClassName('sign');
+  if(toggledColor === 'white') {
+    replain.style.display = "none";
+    neonsign[0].style.display=""; 
+    neonsign[1].style.display=""; 
+
+  }
+  else {
+    replain.style.display = "block";
+    neonsign[0].style.display="none"; 
+    neonsign[1].style.display="none"; 
+}
 }
 catch(error){
   console.log(error)
