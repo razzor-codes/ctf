@@ -1,5 +1,6 @@
 let storedColor = sessionStorage.getItem('toggledColor');
 let checked = sessionStorage.getItem('checkbox');
+
 let dflex = document.querySelector("#content .dynamicW");
 
 checkbox = document.getElementById('checkbox');
@@ -23,11 +24,12 @@ if (storedColor != null && storedColor === 'white' ){
     document.querySelector('.dropdown').style.boxShadow = "0px 4px 8px 0px #3e64ff";
 
     // only for FUD
-  replain = document.getElementById('re-plain'); //Only For FUD
+try{  replain = document.getElementById('re-plain'); //Only For FUD
   neonsign = document.getElementsByClassName('sign');
   replain.style.display = "none";
   neonsign[0].style.display=""; 
-  neonsign[1].style.display=""; 
+  neonsign[1].style.display=""; }
+  catch(err){ console.log(err)}
     
 }
 
@@ -115,8 +117,18 @@ function checkWidth() {
   
 }
 
+
+
 window.addEventListener('load', () => {
+  let scrollPos = sessionStorage.getItem('scrollPos');
+document.querySelector(".active").scrollTop = scrollPos;
     checkWidth()
+  });
+
+  window.addEventListener('beforeunload', () => {
+    console.log("being fired");
+    sessionStorage.setItem('scrollPos', document.querySelector(".active").scrollTop)
+    console.log(sessionStorage.getItem('scrollPos'))
   });
 
 window.addEventListener('resize', () => {
