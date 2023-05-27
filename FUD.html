@@ -92,7 +92,16 @@
     </style>
   </head>
   <body>
-    <nav id="navbar_horizon">
+
+    <div class="background-container">
+      <img class="moony" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt="">
+      <div class="twstars"></div>
+      <div class="twinkling"></div>
+      <div class="clouds"></div>
+
+    </div>
+
+    <nav id="navbar_horizon" style="position: relative;">
       <ul class="list-unstyled components">
         <li><a href="leaderboard.html">Leaderboard</a></li>
         <li><a href="roadmap.html">Auditor's Roadmap</a></li>
@@ -124,7 +133,7 @@
 
   <div id="notif" ></div>
   
-		<div class="wrapper d-flex align-items-stretch">
+		<div class="wrapper d-flex align-items-stretch" style="position: absolute;">
 			<nav id="sidebar" class="active">
         <ul class="list-unstyled components mb-5">
             <li><a href="index.html"><span class="fa fa-home"></span> Home</a></li>
@@ -148,6 +157,7 @@
 
 
       <div id="content" class="p-4 p-md-5" style="overflow: auto;">
+
         <div class="d-flex dynamicW">
           <div>
             <h2 class="mb-4" id="title"><span class="iconify" data-icon="game-icons:overlord-helm" data-width="42" data-height="42"></span>FUD (F U Decompilers)</h2>
@@ -221,6 +231,12 @@
         <p><a href="">Official Writeup</a><br></p>
         -->
         <script src="js/toggle.js"></script>
+        <script>
+          if(document.getElementById('title').style.color == 'black' || document.getElementById('title').style.color == '')
+          {var event = new Event('change');
+
+          checkbox.dispatchEvent(event);}
+        </script>
         <footer>
             <div class="foot-text">Copyright &copy; 2023 - Cipher Shastra</div>  
         </footer>
