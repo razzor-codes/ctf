@@ -28,7 +28,7 @@ async function loadButtons(){
         window.contract = await loadContract();
     }
     if(session==='loggedIn'){
-        accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        accounts = (await ethereum.request({ method: 'eth_requestAccounts' }))[0];
     }
     if(isMetaMaskConnected()){
         login()
@@ -59,7 +59,7 @@ async function login(){
     
         slideout.classList.remove('visible');
     }
-    accounts = newAccount
+    accounts = newAccount[0] // changed from newAccount -> newAccount[0] since MM API now returns an array of connected accounts
     let goerli = (ethereum.chainId == "0x5");
     if (goerli){
         fetchedUsername = await window.contract.methods.usernames(String(accounts)).call();
@@ -145,6 +145,7 @@ async function otherpages_login(){
 
 try{
     ethereum.on('accountsChanged', async (newAccount) => {
+        
         if(!newAccount.length){
             loginButton.innerText = 'Login'
             userAdd.style.display = "none"
@@ -158,7 +159,7 @@ try{
               }, 200)
         }
         else{
-		accounts = newAccount;
+		accounts = newAccount[0];
         userAdd.innerHTML = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
         let goerli = (ethereum.chainId == "0x5");
         if(goerli)
@@ -171,7 +172,7 @@ try{
             username = fetchedUsername
         }
         userImage.setAttribute('src', source + username)
-        userImage.style.display = "block"
+        // userImage.style.display = "block"   -> commented out
     
         }
         else{
@@ -204,6 +205,7 @@ try{
         let goerli = (ethereum.chainId == "0x5");
 
         if (goerli){
+            if(!accounts) return
             fetchedUsername = await window.contract.methods.usernames(String(accounts)).call();
             if(fetchedUsername == ''){
                 username = "Anonymous"
