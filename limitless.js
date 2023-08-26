@@ -426,7 +426,7 @@ else{
 	window.usernameContract = await loadUsernameContract();
 }
 	if(session==='loggedIn'){
-		accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+		accounts = (await ethereum.request({ method: 'eth_requestAccounts' }))[0];
 	}
     if (isMetaMaskConnected()) {
     	connectButton.innerText = "Connected";
@@ -495,7 +495,7 @@ else{
 connectButton.addEventListener('click', async() => {
 
 try{
-      let newAccounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      let newAccounts = (await ethereum.request({ method: 'eth_requestAccounts' }))[0];
 handleNewAccounts(newAccounts);
 }
 
@@ -728,7 +728,7 @@ chainSwitchButton.addEventListener('click', async() => {
 async function login(){
     let newAccount
     try{
-        newAccount = await ethereum.request({ method: 'eth_requestAccounts' });
+        newAccount = (await ethereum.request({ method: 'eth_requestAccounts' }))[0];
     }
     catch(error)
     {
@@ -860,7 +860,7 @@ try{
 			if(isMetaMaskConnected()){
 				inform.innerText = "";
 				chainSwitchButton.style.display = "none";
-				accounts = newAccount;
+				accounts = newAccount[0];
 				userAdd.innerText = String(accounts).substring(0,7) + "..." + String(accounts).substring(37,43);
 				let goerli = (ethereum.chainId == "0x5");
 				if(goerli)
@@ -873,7 +873,7 @@ try{
 						username = fetchedUsername
 					}
 					userImage.setAttribute('src', source + username)
-					userImage.style.display = "block"
+					// userImage.style.display = "block"
 				
 					}
 				else{
@@ -924,6 +924,7 @@ try{
 					username = null
 				}
 				else{
+					if(!accounts) return
 					inform.innerText = "";
 					chainSwitchButton.style.display = "none";
 					tickerButton.disabled = false;
